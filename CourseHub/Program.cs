@@ -1,4 +1,4 @@
-using CourseHub.Data;
+using CourseHub.Infrastrucure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 

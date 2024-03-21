@@ -5,6 +5,10 @@ VisualStudioVersion = 17.5.33516.290
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseHub", "CourseHub\CourseHub.csproj", "{9D78DB2B-7307-43D6-B78A-59BF17AF7281}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseHub.Core", "CourseHub.Core\CourseHub.Core.csproj", "{A244A267-4333-428F-9BD8-3BE35E37AE26}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CourseHub.Infrastructure", "CourseHub.Infrastructure\CourseHub.Infrastructure.csproj", "{3F05E852-F02F-4BA0-AF04-DEF24400A675}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +19,14 @@ Global
 		{9D78DB2B-7307-43D6-B78A-59BF17AF7281}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9D78DB2B-7307-43D6-B78A-59BF17AF7281}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9D78DB2B-7307-43D6-B78A-59BF17AF7281}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A244A267-4333-428F-9BD8-3BE35E37AE26}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A244A267-4333-428F-9BD8-3BE35E37AE26}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A244A267-4333-428F-9BD8-3BE35E37AE26}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A244A267-4333-428F-9BD8-3BE35E37AE26}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3F05E852-F02F-4BA0-AF04-DEF24400A675}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3F05E852-F02F-4BA0-AF04-DEF24400A675}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3F05E852-F02F-4BA0-AF04-DEF24400A675}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3F05E852-F02F-4BA0-AF04-DEF24400A675}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

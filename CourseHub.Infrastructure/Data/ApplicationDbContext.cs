@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace CourseHub.Data
+namespace CourseHub.Infrastrucure.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {
