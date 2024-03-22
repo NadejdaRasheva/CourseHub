@@ -68,13 +68,13 @@ namespace CourseHub.Infrastructure.Migrations
                         column: x => x.CategoryId,
                         principalTable: "Categories",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Courses_Teachers_TeacherId",
-                        column: x => x.TeacherId,
+                        name: "FK_Courses_Teachers_CategoryId",
+                        column: x => x.CategoryId,
                         principalTable: "Teachers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 },
                 comment: "Course");
 
@@ -82,11 +82,6 @@ namespace CourseHub.Infrastructure.Migrations
                 name: "IX_Courses_CategoryId",
                 table: "Courses",
                 column: "CategoryId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Courses_TeacherId",
-                table: "Courses",
-                column: "TeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teachers_UserId",

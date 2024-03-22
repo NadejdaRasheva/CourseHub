@@ -11,7 +11,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CourseHub.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(CourseHubDbContext))]
     [Migration("20240321161625_InitialMigration")]
     partial class InitialMigration
     {

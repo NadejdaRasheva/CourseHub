@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CourseHub.Infrastructure.Migrations
 {
-    [DbContext(typeof(ApplicationDbContext))]
+    [DbContext(typeof(CourseHubDbContext))]
     partial class ApplicationDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -98,8 +98,6 @@ namespace CourseHub.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
-
-                    b.HasIndex("TeacherId");
 
                     b.ToTable("Courses");
 
@@ -342,13 +340,13 @@ namespace CourseHub.Infrastructure.Migrations
                     b.HasOne("CourseHub.Infrastructure.Data.Models.Category", "Category")
                         .WithMany("Courses")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("CourseHub.Infrastructure.Data.Models.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .WithMany("Courses")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.Navigation("Category");
@@ -419,6 +417,11 @@ namespace CourseHub.Infrastructure.Migrations
                 });
 
             modelBuilder.Entity("CourseHub.Infrastructure.Data.Models.Category", b =>
+                {
+                    b.Navigation("Courses");
+                });
+
+            modelBuilder.Entity("CourseHub.Infrastructure.Data.Models.Teacher", b =>
                 {
                     b.Navigation("Courses");
                 });
