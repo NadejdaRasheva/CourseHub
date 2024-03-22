@@ -4,6 +4,7 @@ using CourseHub.Infrastrucure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourseHub.Infrastructure.Migrations
 {
     [DbContext(typeof(CourseHubDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240322170444_TablesAdded")]
+    partial class TablesAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,38 +44,6 @@ namespace CourseHub.Infrastructure.Migrations
                     b.ToTable("Categories");
 
                     b.HasComment("Course category");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 2,
-                            Name = "Creative Arts and Performance"
-                        },
-                        new
-                        {
-                            Id = 5,
-                            Name = "Sports and Fitness"
-                        },
-                        new
-                        {
-                            Id = 4,
-                            Name = "Personal Development"
-                        },
-                        new
-                        {
-                            Id = 3,
-                            Name = "Practical Skills and Trades"
-                        },
-                        new
-                        {
-                            Id = 1,
-                            Name = "Academic Subjects"
-                        },
-                        new
-                        {
-                            Id = 6,
-                            Name = "Special Interests and Hobbies"
-                        });
                 });
 
             modelBuilder.Entity("CourseHub.Infrastructure.Data.Models.Course", b =>
@@ -136,47 +106,6 @@ namespace CourseHub.Infrastructure.Migrations
                     b.ToTable("Courses");
 
                     b.HasComment("Course");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            CategoryId = 1,
-                            City = "Sofia",
-                            Description = "Math lessons for all classes",
-                            EndDate = new DateTime(2024, 5, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Frequency = 2,
-                            Name = "Math",
-                            Price = 350m,
-                            StartDate = new DateTime(2024, 3, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TeacherId = 1
-                        },
-                        new
-                        {
-                            Id = 2,
-                            CategoryId = 2,
-                            City = "Plovdiv",
-                            Description = "Guitar lessons for children",
-                            EndDate = new DateTime(2024, 5, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Frequency = 1,
-                            Name = "Guitar",
-                            Price = 500m,
-                            StartDate = new DateTime(2024, 4, 20, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TeacherId = 1
-                        },
-                        new
-                        {
-                            Id = 3,
-                            CategoryId = 3,
-                            City = "Stara Zagora",
-                            Description = "Autos lectures for teenagers",
-                            EndDate = new DateTime(2024, 7, 30, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Frequency = 1,
-                            Name = "Engines",
-                            Price = 700m,
-                            StartDate = new DateTime(2024, 4, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            TeacherId = 1
-                        });
                 });
 
             modelBuilder.Entity("CourseHub.Infrastructure.Data.Models.Teacher", b =>
@@ -206,14 +135,6 @@ namespace CourseHub.Infrastructure.Migrations
                     b.ToTable("Teachers");
 
                     b.HasComment("Course teacher");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = 1,
-                            PhoneNumber = "0876543210",
-                            UserId = "dea12856-c198-4129-b3f3-b893d8395082"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
@@ -331,40 +252,6 @@ namespace CourseHub.Infrastructure.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers", (string)null);
-
-                    b.HasData(
-                        new
-                        {
-                            Id = "dea12856-c198-4129-b3f3-b893d8395082",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "7f33bbdf-a89b-46a3-9bfd-3345bad0e164",
-                            Email = "agent@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "agent@mail.com",
-                            NormalizedUserName = "agent@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAECzv69usg6++vYuLXKl7Lwj9gIA+nf9+oBI/t1iduCfQfWiYxwlVQG/+/fmffBgu5w==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "b7a3947b-5656-41e3-8534-9c3fed281360",
-                            TwoFactorEnabled = false,
-                            UserName = "agent@mail.com"
-                        },
-                        new
-                        {
-                            Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
-                            AccessFailedCount = 0,
-                            ConcurrencyStamp = "0fd08f57-7bc7-4f85-bdcb-5f1491e8c7eb",
-                            Email = "student@mail.com",
-                            EmailConfirmed = false,
-                            LockoutEnabled = false,
-                            NormalizedEmail = "student@mail.com",
-                            NormalizedUserName = "student@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEFfG4agNAF7IZZJJsVx3ua/aG7xaGGmeIpEQ3hE7dtmwfxleK8jgL3qaP9n07SbBnQ==",
-                            PhoneNumberConfirmed = false,
-                            SecurityStamp = "f08eaf63-f34c-4a77-91b0-07a45277abcd",
-                            TwoFactorEnabled = false,
-                            UserName = "student@mail.com"
-                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>

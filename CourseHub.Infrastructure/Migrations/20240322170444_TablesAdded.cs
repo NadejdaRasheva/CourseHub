@@ -70,8 +70,8 @@ namespace CourseHub.Infrastructure.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Courses_Teachers_CategoryId",
-                        column: x => x.CategoryId,
+                        name: "FK_Courses_Teachers_TeacherId",
+                        column: x => x.TeacherId,
                         principalTable: "Teachers",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
@@ -82,6 +82,11 @@ namespace CourseHub.Infrastructure.Migrations
                 name: "IX_Courses_CategoryId",
                 table: "Courses",
                 column: "CategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Courses_TeacherId",
+                table: "Courses",
+                column: "TeacherId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teachers_UserId",

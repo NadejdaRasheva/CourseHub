@@ -1,4 +1,5 @@
 ﻿using CourseHub.Infrastructure.Data.Models;
+using CourseHub.Infrastructure.Data.SeedDb;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
@@ -13,18 +14,11 @@ namespace CourseHub.Infrastrucure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-            builder.Entity<Course>()
-                .HasOne(c => c.Category)
-                .WithMany(c => c.Courses)
-                .HasForeignKey(c => c.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
-            base.OnModelCreating(builder);
+            builder.ApplyConfiguration(new UserConfiguration());
+            builder.ApplyConfiguration(new TeacherConfiguration());
+            builder.ApplyConfiguration(new CategoryConfiguration());
+            builder.ApplyConfiguration(new CourseConfiguration());
 
-            builder.Entity<Course>()
-                .HasOne(c => c.Teacher)
-                .WithMany(c => c.Courses)
-                .HasForeignKey(c => c.CategoryId)
-                .OnDelete(DeleteBehavior.Restrict);
             base.OnModelCreating(builder);
         }
 
