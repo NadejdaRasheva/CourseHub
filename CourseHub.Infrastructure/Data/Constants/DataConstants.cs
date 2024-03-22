@@ -32,7 +32,7 @@ namespace CourseHub.Infrastructure.Data.Constants
 
         public const string CourseMaxPrice = "2000";
 
-        public const int TeacherPhoneNumberMaxLength = 10;
+        public const int TeacherPhoneNumberMaxLength = 13;
 
         public const int TeacherPhoneNumberMinLength = 7;
     }
