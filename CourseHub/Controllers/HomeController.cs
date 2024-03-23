@@ -1,4 +1,5 @@
-﻿using CourseHub.Models;
+﻿using CourseHub.Core.Models.Home;
+using CourseHub.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -15,7 +16,8 @@ namespace CourseHub.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            var model = new IndexViewModel();
+            return View(model);
         }
 
 
