@@ -1,0 +1,32 @@
+﻿h1, h2, hr, footer > div {
+    color: white;
+    font-weight: 500;
+}
+
+header {
+    background-color: #EEF5FF;
+    color: white;
+}
+
+footer {
+    background-color: #da8fff;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 8%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.custom-button-color {
+    background-color: #4af7ac;
+    border-color: #4af7ac;
+    
+}
+
+    .custom-button-color:hover {
+        background-color: #05f78d;
+    }
