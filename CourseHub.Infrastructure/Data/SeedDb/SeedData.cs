@@ -59,7 +59,7 @@ namespace CourseHub.Infrastructure.Data.SeedDb
             Teacher = new Teacher()
             {
                 Id = 1,
-                PhoneNumber = "0876543210",
+                PhoneNumber = "+359876543210",
                 UserId = TeacherUser.Id
             };
         }

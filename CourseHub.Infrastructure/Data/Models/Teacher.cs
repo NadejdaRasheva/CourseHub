@@ -6,6 +6,7 @@ using static CourseHub.Infrastructure.Data.Constants.DataConstants;
 
 namespace CourseHub.Infrastructure.Data.Models
 {
+    [Index(nameof(PhoneNumber), IsUnique = true)]
     [Comment("Course teacher")]
     public class Teacher
     {
