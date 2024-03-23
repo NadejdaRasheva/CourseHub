@@ -23,13 +23,13 @@
 						@if (User?.Identity?.IsAuthenticated ?? true)
 						{
 								<li class="nav-item">
-										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="House" asp-action="All">All Courses</a>
+										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="All">All Courses</a>
 								</li>
 								<li class="nav-item">
-										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="House" asp-action="Joined">My Courses</a>
+										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="Join">My Courses</a>
 								</li>
 								<li class="nav-item">
-										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="House" asp-action="Add">Add Course</a>
+										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="Add">Add Course</a>
 								</li>
 						}
 					</ul>

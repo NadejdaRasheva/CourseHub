@@ -1,3 +1,5 @@
+using CourseHub.Core.Contracts;
+using CourseHub.Core.Services;
 using CourseHub.Infrastrucure.Data;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -13,6 +15,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
     .AddEntityFrameworkStores<CourseHubDbContext>();
 
 builder.Services.AddControllersWithViews();
+builder.Services.AddTransient<ITeacherService, TeacherService>();
 
 var app = builder.Build();
 
