@@ -45,7 +45,7 @@ namespace CourseHub.Controllers
 		{
 			if(await _teachers.ExistsByIdAsync(User.Id()) == false)
 			{
-				return RedirectToAction(nameof(TeacherController.Become), "Agent");
+				return RedirectToAction(nameof(TeacherController.Become), "Teacher");
 			}
 
 			return View(new CourseFormModel
