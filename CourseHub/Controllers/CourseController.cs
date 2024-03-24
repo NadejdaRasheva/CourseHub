@@ -1,13 +1,26 @@
-﻿using CourseHub.Core.Models.Course;
+﻿using CourseHub.Core.Contracts;
+using CourseHub.Core.Models.Course;
+using CourseHub.Extensions;
+using CourseHub.Infrastructure.Data.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Globalization;
 
 namespace CourseHub.Controllers
 {
 	[Authorize]
 	public class CourseController : Controller
 	{
-		[HttpGet]
+		private readonly ICourseService _courses;
+		private readonly ITeacherService _teachers;
+        public CourseController(ICourseService courses,
+			ITeacherService teachers)
+        {
+            _courses = courses;
+			_teachers = teachers;
+        }
+
+        [HttpGet]
 		public async Task<IActionResult> All()
 		{
 			var model = new AllCoursesQueryModel();
@@ -28,16 +41,70 @@ namespace CourseHub.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Add()
+		public async Task<IActionResult> Add()
 		{
-			return View();
+			if(await _teachers.ExistsByIdAsync(User.Id()) == false)
+			{
+				return RedirectToAction(nameof(TeacherController.Become), "Agent");
+			}
+
+			return View(new CourseFormModel
+			{
+				Categories = await _courses.AllCategoriesAsync()
+			});
+
 		}
 
 		[HttpPost]
 		public async Task<IActionResult> Add(CourseFormModel model)
 		{
-			return RedirectToAction(nameof(Details), new { id = 1 });
-		}
+            DateTime _startDate = DateTime.Now;
+            DateTime _endDate = DateTime.Now;
+            if (!DateTime.TryParseExact(
+                model.StartDate,
+                DataConstants.DateFormat,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out _startDate))
+            {
+                ModelState.AddModelError(nameof(_startDate), $"Invalid date! Format is: {DataConstants.DateFormat}");
+            }
+
+            if (!DateTime.TryParseExact(
+                model.EndDate,
+                DataConstants.DateFormat,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out _endDate))
+            {
+                ModelState.AddModelError(nameof(_endDate), $"Invalid date! Format is: {DataConstants.DateFormat}");
+            }
+
+			if(await _teachers.ExistsByIdAsync(User.Id()) == false)
+			{
+				return RedirectToAction(nameof(TeacherController.Become), "Teacher");
+			}
+
+			if(await _courses.CategoryExistsAsync(model.CategoryId) == false)
+			{
+				this.ModelState.AddModelError(nameof(model.CategoryId),
+					"Category does not exist.");
+			}
+
+			if(!ModelState.IsValid)
+			{
+				model.Categories = await _courses.AllCategoriesAsync();
+				return View(model);
+			}
+
+			int? teacherId = await _teachers.GetTeacherIdAsync(User.Id());
+
+			var newCourseId = await _courses.CreateAsync(model.Name, model.Description,
+				_startDate, _endDate, model.Frequency, 
+				model.Price, model.CategoryId, teacherId ?? 0); //not breaking because we have checked
+
+			return RedirectToAction(nameof(Details), new { id = newCourseId });
+        }
 
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id)

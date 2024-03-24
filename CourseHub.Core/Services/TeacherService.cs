@@ -2,11 +2,6 @@
 using CourseHub.Infrastructure.Data.Models;
 using CourseHub.Infrastrucure.Data;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CourseHub.Core.Services
 {
@@ -39,6 +34,11 @@ namespace CourseHub.Core.Services
 
             await _data.Teachers.AddAsync(teacher);
             await _data.SaveChangesAsync();
+        }
+
+        public async Task<int?> GetTeacherIdAsync(string userId)
+        {
+            return (await _data.Teachers.FirstOrDefaultAsync(t => t.UserId == userId))?.Id;
         }
     }
 }

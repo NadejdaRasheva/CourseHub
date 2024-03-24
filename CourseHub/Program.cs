@@ -1,6 +1,7 @@
 using CourseHub.Core.Contracts;
 using CourseHub.Core.Services;
 using CourseHub.Infrastrucure.Data;
+using CourseHub.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,8 +15,12 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<CourseHubDbContext>();
 
-builder.Services.AddControllersWithViews();
+builder.Services.AddControllersWithViews(options =>
+{
+    options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+});
 builder.Services.AddTransient<ITeacherService, TeacherService>();
+builder.Services.AddTransient<ICourseService, CourseService>();
 
 var app = builder.Build();
 

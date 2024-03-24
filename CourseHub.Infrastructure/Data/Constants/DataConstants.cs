@@ -10,11 +10,11 @@ namespace CourseHub.Infrastructure.Data.Constants
     {
         public const int CategoryNameMaxLength = 50;
 
-        public const int CategoryNameMinLength = 50;
+        public const int CategoryNameMinLength = 5;
 
         public const int CourseNameMaxLength = 50;
 
-        public const int CourseNameMinLength = 50;
+        public const int CourseNameMinLength = 5;
 
         public const int CourseDescriptionMaxLength = 500;
 
@@ -28,12 +28,14 @@ namespace CourseHub.Infrastructure.Data.Constants
 
         public const int CityNameMinLength = 3;
 
-        public const string CourseMinPrice = "0.00";
+        public const string CourseMinPrice = "0";
 
-        public const string CourseMaxPrice = "2000";
+        public const string CourseMaxPrice = "5000";
 
         public const int TeacherPhoneNumberMaxLength = 13;
 
         public const int TeacherPhoneNumberMinLength = 7;
+
+        public const string DateFormat = "dd/MM/yyyy";
     }
 }

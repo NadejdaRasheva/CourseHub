@@ -7,5 +7,7 @@
         Task<bool> UserWithPhoneNumberExistsAsync(string phoneNumber);
 
         Task CreateAsync(string userId, string phoneNumber);
+
+        Task<int?> GetTeacherIdAsync(string userId);
     }
 }
