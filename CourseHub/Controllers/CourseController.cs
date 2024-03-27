@@ -21,10 +21,23 @@ namespace CourseHub.Controllers
         }
 
         [HttpGet]
-		public async Task<IActionResult> All()
+		public async Task<IActionResult> All([FromQuery]AllCoursesQueryModel query)
 		{
-			var model = new AllCoursesQueryModel();
-			return View();
+			var queryResult = await _courses.AllAsync(
+				query.Category,
+				query.SearchTerm,
+				query.Sorting,
+				query.Filtering,
+				query.CurrentPage,
+				AllCoursesQueryModel.CoursesPerPage);
+
+			query.TotalCoursesCount = queryResult.TotalCoursesCount;
+			query.Courses = queryResult.Courses;
+
+			var courseCategories = await _courses.AllCategoriesNamesAsync();
+			query.Categories = (IEnumerable<string>)courseCategories;
+
+			return View(query);
 		}
 
 		[HttpGet]

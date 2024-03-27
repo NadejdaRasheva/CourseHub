@@ -1,0 +1,30 @@
+﻿@model CourseServiceModel
+
+<div class="col-md-4">
+    <div class="card mb-3">
+        <div class="card-body text-center">
+            <h4>@Model.Name</h4>
+            <h6>City: <b>@Model.City</b></h6>
+            <h6>
+                Price:
+                <b>@String.Format("{0:f2}", Model.Price) BGN</b>
+            </h6>
+            <br />
+            <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.Id"
+               class="btn btn-success">Details</a>
+            @if (this.User.Identity.IsAuthenticated)
+            {
+                    <a asp-controller="Course" asp-action="Edit" asp-route-id="@Model.Id"
+                   class="btn btn-warning">Edit</a>
+                    <a asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
+                   class="btn btn-danger">Delete</a>
+                    <p></p>
+                    <form class="input-group-sm" asp-controller="Course"
+                  asp-action="Join" asp-route-id="@Model.Id" method="post">
+                      <input class="btn btn-primary" type="submit" value="Join" />
+                    </form>
+            }
+        </div>
+    </div>
+</div>
+
