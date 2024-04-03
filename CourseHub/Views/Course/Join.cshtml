@@ -1,0 +1,19 @@
+﻿@model IEnumerable<CourseServiceModel>
+@{
+	ViewData["Title"] = "Joined Courses";
+}
+
+<h2 class="text-center">@ViewData["Title"]</h2>
+<hr />
+
+@if (!Model.Any())
+{
+		<h2 class="text-center">You haven't joined any courses</h2>
+}
+
+<div class="row">
+	@foreach (var course in Model)
+	{
+			<partial name="_CoursePartial" model="@course" />
+	}
+</div>

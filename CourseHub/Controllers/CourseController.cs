@@ -43,10 +43,29 @@ namespace CourseHub.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Mine()
 		{
-			return View();
+			IEnumerable<CourseServiceModel> myCourses = null;
+
+			var userId = User.Id();
+
+			var currentTeacherId = await _teachers.GetTeacherIdAsync(userId);
+			myCourses = await _courses.AllCoursesByTeacherIdAsync(currentTeacherId ?? 0);
+
+			return View(myCourses);
 		}
 
-		[HttpGet]
+        [HttpGet]
+        public async Task<IActionResult> Join()
+        {
+            IEnumerable<CourseServiceModel> joinedCourses = null;
+
+            var userId = User.Id();
+
+            joinedCourses = await _courses.AllCoursesByUserIdAsync(userId);
+
+            return View(joinedCourses);
+        }
+
+        [HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
 			var model = new CourseDetailsViewModel();

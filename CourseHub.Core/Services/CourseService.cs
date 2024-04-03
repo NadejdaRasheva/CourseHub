@@ -1,8 +1,10 @@
 ﻿using CourseHub.Core.Contracts;
 using CourseHub.Core.Enumerations;
 using CourseHub.Core.Models.Course;
+using CourseHub.Infrastructure.Data.Models;
 using CourseHub.Infrastrucure.Data;
 using Microsoft.EntityFrameworkCore;
+using System.Runtime.InteropServices;
 
 namespace CourseHub.Core.Services
 {
@@ -103,7 +105,43 @@ namespace CourseHub.Core.Services
                 .ToListAsync();
         }
 
-		public async Task<bool> CategoryExistsAsync(int categoryId)
+        public async Task<IEnumerable<CourseServiceModel>> AllCoursesByTeacherIdAsync(int teacherId)
+        {
+            var courses = await _data
+                .Courses
+                .Where(c => c.TeacherId == teacherId)
+                .ToListAsync();
+
+            return ProjectToModel(courses);
+        }
+
+        private List<CourseServiceModel> ProjectToModel(List<Course> courses)
+        {
+            var resultCourses = courses
+                .Select(c => new CourseServiceModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    City = c.City,
+                    Frequency = c.Frequency,
+                    Price = c.Price
+                })
+                .ToList();
+
+            return resultCourses;
+        }
+
+        public async Task<IEnumerable<CourseServiceModel>> AllCoursesByUserIdAsync(string userId)
+        {
+            var courses = await _data
+                .Courses
+                .Where(c => c.CourseParticipants.Any(cp => cp.ParticipantId == userId))
+                .ToListAsync();
+          
+            return ProjectToModel(courses);
+        }
+
+        public async Task<bool> CategoryExistsAsync(int categoryId)
         {
             return await _data.Categories.AnyAsync(c => c.Id == categoryId);
         }

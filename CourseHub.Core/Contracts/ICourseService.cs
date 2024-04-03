@@ -21,5 +21,9 @@ namespace CourseHub.Core.Contracts
             int coursesPerPage = 1);
 
         Task<IEnumerable<string>> AllCategoriesNamesAsync();
+
+        Task<IEnumerable<CourseServiceModel>> AllCoursesByTeacherIdAsync(int teacherId);
+
+        Task<IEnumerable<CourseServiceModel>> AllCoursesByUserIdAsync(string userId);
     }
 }
