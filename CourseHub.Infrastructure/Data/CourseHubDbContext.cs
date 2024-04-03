@@ -18,6 +18,7 @@ namespace CourseHub.Infrastrucure.Data
             builder.ApplyConfiguration(new TeacherConfiguration());
             builder.ApplyConfiguration(new CategoryConfiguration());
             builder.ApplyConfiguration(new CourseConfiguration());
+            builder.ApplyConfiguration(new CourseParticipantConfiguration());
 
             base.OnModelCreating(builder);
         }
@@ -25,5 +26,6 @@ namespace CourseHub.Infrastrucure.Data
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<CourseParticipant> CoursesParticipants { get; set; }
     }
 }

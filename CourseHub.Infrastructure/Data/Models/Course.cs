@@ -59,5 +59,7 @@ namespace CourseHub.Infrastructure.Data.Models
 
         [ForeignKey(nameof(TeacherId))]
         public Teacher Teacher { get; set; } = null!;
+
+        public IList<CourseParticipant> CourseParticipants { get; set; } = new List<CourseParticipant>();
     }
 }
