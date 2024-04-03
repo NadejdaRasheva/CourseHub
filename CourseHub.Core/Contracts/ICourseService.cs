@@ -25,5 +25,9 @@ namespace CourseHub.Core.Contracts
         Task<IEnumerable<CourseServiceModel>> AllCoursesByTeacherIdAsync(int teacherId);
 
         Task<IEnumerable<CourseServiceModel>> AllCoursesByUserIdAsync(string userId);
+
+        Task<bool> ExistsAsync(int id);
+
+        Task<CourseDetailsServiceModel> CourseDetailsById(int id);
     }
 }

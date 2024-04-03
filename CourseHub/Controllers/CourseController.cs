@@ -68,8 +68,14 @@ namespace CourseHub.Controllers
         [HttpGet]
 		public async Task<IActionResult> Details(int id)
 		{
-			var model = new CourseDetailsViewModel();
-			return View(model);
+			if (await _courses.ExistsAsync(id) == false)
+			{
+				return BadRequest();
+			}
+
+			var courseModel = await _courses.CourseDetailsById(id);
+
+			return View(courseModel);
 		}
 
 		[HttpGet]

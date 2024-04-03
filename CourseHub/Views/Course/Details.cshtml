@@ -1,9 +1,46 @@
-﻿@model CourseDetailsViewModel
+﻿@model CourseDetailsServiceModel
+
 @{
-	ViewData["Title"] = "Course Details";
+	ViewBag.Title = "Course Details";
 }
 
-<h2 class="text-center">@ViewData["Title"]</h2>
+<h2 class="text-center">@ViewBag.Title</h2>
 <hr />
+
+<div class="container" style=" display: inline; justify-content: center">
+	<div class="row">
+		<div class="card col-10 border-0" style="padding: 3rem;">
+			<p style="font-size:25px;"><u>@Model.Name</u></p>
+			<p>Location: <b>@Model.City</b></p>
+			<p>
+				Price:
+				<b>@String.Format("{0:f2}", Model.Price) BGN</b>
+			</p>
+			<p>Description: <b>@Model.Description</b></p>
+			<p>Category: <b>@Model.Category</b></p>
+			<p>Start Date: <b>@Model.StartDate</b></p>
+			<p>End Date: <b>@Model.EndDate</b></p>
+			<p>Times per week: <b>@Model.Frequency</b></p>
+			<div class="form-inline">
+				@if (this.User.Identity.IsAuthenticated)
+				{
+							<a class="btn btn-warning" asp-controller="Course" asp-action="Edit"
+                       asp-route-id="@Model.Id">Edit</a>
+							<a class="ml-2 btn btn-danger" asp-controller="Course" asp-action="Delete"
+                       asp-route-id="@Model.Id">Delete</a>
+				}
+			</div>
+			<p></p>
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Teacher Info</h5>
+					<p class="card-text">Email:  @Model.Teacher.Email</p>
+					<p class="card-text">Phone Number: @Model.Teacher.PhoneNumber</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
 
 

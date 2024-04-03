@@ -1,6 +1,7 @@
 ﻿using CourseHub.Core.Contracts;
 using CourseHub.Core.Enumerations;
 using CourseHub.Core.Models.Course;
+using CourseHub.Core.Models.Teacher;
 using CourseHub.Infrastructure.Data.Models;
 using CourseHub.Infrastrucure.Data;
 using Microsoft.EntityFrameworkCore;
@@ -168,5 +169,37 @@ namespace CourseHub.Core.Services
 
             return course.Id;
         }
-    }
+
+		public async Task<bool> ExistsAsync(int id)
+		{
+			return await _data
+                .Courses
+                .AnyAsync(c => c.Id == id);
+		}
+
+		public async Task<CourseDetailsServiceModel> CourseDetailsById(int id)
+		{
+            return await _data
+                .Courses
+                .Where(c => c.Id == id)
+                .Select(c => new CourseDetailsServiceModel()
+                {
+                    Id = c.Id,
+                    Name = c.Name,
+                    Description = c.Description,
+                    City = c.City,
+                    StartDate = c.StartDate.Date.ToShortDateString(),
+                    EndDate = c.EndDate.Date.ToShortDateString(),
+                    Frequency = c.Frequency,
+                    Price = c.Price,
+                    Category = c.Category.Name,
+                    Teacher = new TeacherServiceModel()
+                    {
+                        PhoneNumber = c.Teacher.PhoneNumber,
+                        Email = c.Teacher.User.Email
+                    }
+                })
+                .FirstAsync();
+		}
+	}
 }
