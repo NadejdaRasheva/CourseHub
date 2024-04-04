@@ -259,5 +259,16 @@ namespace CourseHub.Core.Services
 
             return course;
 		}
+
+		public async Task DeleteAsync(int courseId)
+		{
+			var course = await _data.Courses.FindAsync(courseId);
+
+            if(course != null)
+            {
+				_data.Remove(course);
+			}
+            await _data.SaveChangesAsync();
+		}
 	}
 }

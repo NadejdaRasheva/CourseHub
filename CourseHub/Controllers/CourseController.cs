@@ -197,13 +197,42 @@ namespace CourseHub.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Delete(int id)
 		{
-			var model = new CourseDetailsViewModel();
+			if(await _courses.ExistsAsync(id) == false)
+			{
+				return BadRequest();
+			}
+
+			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false)
+			{
+				return Unauthorized();
+			}
+
+			var course = await _courses.CourseDetailsByIdAsync(id);
+
+			var model = new CourseDetailsViewModel()
+			{
+				Name = course.Name,
+				City = course.City
+			};
+
 			return View(model);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Delete(int id, CourseDetailsViewModel model)
+		public async Task<IActionResult> Delete(int id, CourseDetailsViewModel course)
 		{
+			if (await _courses.ExistsAsync(id) == false)
+			{
+				return BadRequest();
+			}
+
+			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false)
+			{
+				return Unauthorized();
+			}
+
+
+			await _courses.DeleteAsync(course.Id);
 			return RedirectToAction(nameof(All));
 		}
 

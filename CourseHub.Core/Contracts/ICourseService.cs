@@ -37,5 +37,7 @@ namespace CourseHub.Core.Contracts
         Task<bool> HasTeacherWithIdAsync(int courseId, string currentUserId);
 
         Task<CourseFormModel?> GetCourseFormByIdAsync(int id);
+
+        Task DeleteAsync(int courseId);
     }
 }
