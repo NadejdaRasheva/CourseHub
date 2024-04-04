@@ -22,6 +22,7 @@
 			<p>End Date: <b>@Model.EndDate</b></p>
 			<p>Times per week: <b>@Model.Frequency</b></p>
 			<div class="form-inline">
+				
 				@if (this.User.Identity.IsAuthenticated)
 				{
 							<a class="btn btn-warning" asp-controller="Course" asp-action="Edit"
@@ -38,6 +39,7 @@
 					<p class="card-text">Phone Number: @Model.Teacher.PhoneNumber</p>
 				</div>
 			</div>
+			<a asp-controller="Course" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Courses</a>
 		</div>
 	</div>
 </div>
