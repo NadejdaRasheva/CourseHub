@@ -177,7 +177,7 @@ namespace CourseHub.Core.Services
                 .AnyAsync(c => c.Id == id);
 		}
 
-		public async Task<CourseDetailsServiceModel> CourseDetailsById(int id)
+		public async Task<CourseDetailsServiceModel> CourseDetailsByIdAsync(int id)
 		{
             return await _data
                 .Courses
@@ -200,6 +200,64 @@ namespace CourseHub.Core.Services
                     }
                 })
                 .FirstAsync();
+		}
+
+		public async Task EditAsync(int courseId, string name, string description, string city, DateTime startDate, DateTime endDate, int frequency, decimal price, int categoryId)
+		{
+            var course = _data.Courses.Find(courseId);
+
+            course.Name = name;
+            course.Description = description;
+            course.City = city;
+            course.StartDate = startDate;
+            course.EndDate = endDate;
+            course.Frequency = frequency;
+            course.Price = price;
+            course.CategoryId = categoryId;
+
+            await _data.SaveChangesAsync();
+		}
+
+		public async Task<bool> HasTeacherWithIdAsync(int courseId, string currentUserId)
+		{
+			var course = await _data.Courses.FindAsync(courseId);
+            var teacher = await _data.Teachers.FirstOrDefaultAsync(t => t.Id == course.TeacherId);
+
+            if(teacher == null)
+            {
+                return false;
+            }
+
+            if(teacher.UserId !=  currentUserId)
+            {
+                return false;
+            }
+
+            return true;
+		}
+
+		public async Task<CourseFormModel?> GetCourseFormByIdAsync(int id)
+		{
+            var course = await _data.Courses.Where(c => c.Id == id)
+                .Select(c => new CourseFormModel()
+                {
+                    Name = c.Name,
+                    Description = c.Description,
+                    City = c.City,
+                    StartDate = c.StartDate,
+                    EndDate = c.EndDate,
+                    Frequency = c.Frequency,
+                    Price = c.Price,
+                    CategoryId = c.CategoryId
+                })
+                .FirstOrDefaultAsync();
+
+            if(course != null)
+            {
+                course.Categories = await AllCategoriesAsync();
+            }
+
+            return course;
 		}
 	}
 }

@@ -73,7 +73,7 @@ namespace CourseHub.Controllers
 				return BadRequest();
 			}
 
-			var courseModel = await _courses.CourseDetailsById(id);
+			var courseModel = await _courses.CourseDetailsByIdAsync(id);
 
 			return View(courseModel);
 		}
@@ -99,7 +99,7 @@ namespace CourseHub.Controllers
             DateTime _startDate = DateTime.Now;
             DateTime _endDate = DateTime.Now;
             if (!DateTime.TryParseExact(
-                model.StartDate,
+                model.StartDate.ToString(),
                 DataConstants.DateFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
@@ -109,7 +109,7 @@ namespace CourseHub.Controllers
             }
 
             if (!DateTime.TryParseExact(
-                model.EndDate,
+                model.EndDate.ToString(),
                 DataConstants.DateFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
@@ -147,14 +147,51 @@ namespace CourseHub.Controllers
 		[HttpGet]
 		public async Task<IActionResult> Edit(int id)
 		{
-			var model = new CourseFormModel();
+			if(await _courses.ExistsAsync(id) == false)
+			{
+				return BadRequest();
+			}
+
+			if(await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false)
+			{
+				return Unauthorized();
+			}
+
+			var model = await _courses.GetCourseFormByIdAsync(id);
+
 			return View(model);
 		}
 
 		[HttpPost]
-		public async Task<IActionResult> Edit(int id, CourseFormModel model)
+		public async Task<IActionResult> Edit(int id, CourseFormModel course)
 		{
-			return RedirectToAction(nameof(Details), new { id = 1 });
+			if (await _courses.ExistsAsync(id) == false)
+			{
+				return BadRequest();
+			}
+
+			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false)
+			{
+				return Unauthorized();
+			}
+
+			if(await _courses.CategoryExistsAsync(course.CategoryId) == false)
+			{
+				this.ModelState.AddModelError(nameof(course.CategoryId),
+					"Category does not exist.");
+			}
+
+			if(!ModelState.IsValid)
+			{
+				course.Categories = await _courses.AllCategoriesAsync();
+				return View(course);
+			}
+
+			await _courses.EditAsync(id, course.Name, course.Description,
+				course.City,course.StartDate, course.EndDate, course.Frequency,
+				course.Price, course.CategoryId);
+
+			return RedirectToAction(nameof(Details), new { id = id });
 		}
 
 		[HttpGet]

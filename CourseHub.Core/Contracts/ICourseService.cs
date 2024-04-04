@@ -28,6 +28,14 @@ namespace CourseHub.Core.Contracts
 
         Task<bool> ExistsAsync(int id);
 
-        Task<CourseDetailsServiceModel> CourseDetailsById(int id);
+        Task<CourseDetailsServiceModel> CourseDetailsByIdAsync(int id);
+
+        Task EditAsync(int courseId, string name, string description,
+            string city, DateTime startDate, DateTime endDate, 
+            int frequency, decimal price, int categoryId);
+
+        Task<bool> HasTeacherWithIdAsync(int courseId, string currentUserId);
+
+        Task<CourseFormModel?> GetCourseFormByIdAsync(int id);
     }
 }
