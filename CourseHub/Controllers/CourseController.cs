@@ -268,7 +268,7 @@ namespace CourseHub.Controllers
 
 			await _courses.JoinAsync(id, User.Id());
 
-			return RedirectToAction(nameof(All));
+			return RedirectToAction(nameof(Join));
         }
 
 		[HttpPost]
