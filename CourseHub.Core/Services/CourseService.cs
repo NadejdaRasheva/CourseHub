@@ -148,7 +148,7 @@ namespace CourseHub.Core.Services
         }
 
         public async Task<int> CreateAsync(string name, string description, 
-            DateTime startDate, DateTime endDate, int frequency, 
+            string city, DateTime startDate, DateTime endDate, int frequency, 
             decimal price, int categoryId, int teacherId)
         {
 
@@ -156,8 +156,9 @@ namespace CourseHub.Core.Services
             {
                 Name = name,
                 Description = description,
-                StartDate = DateTime.Now,
-                EndDate = DateTime.Now,
+                City = city,
+                StartDate = startDate,
+                EndDate = endDate,
                 Frequency = frequency,
                 Price = price,
                 CategoryId = categoryId,
@@ -244,8 +245,8 @@ namespace CourseHub.Core.Services
                     Name = c.Name,
                     Description = c.Description,
                     City = c.City,
-                    StartDate = c.StartDate,
-                    EndDate = c.EndDate,
+                    StartDate = c.StartDate.ToString(),
+                    EndDate = c.EndDate.ToString(),
                     Frequency = c.Frequency,
                     Price = c.Price,
                     CategoryId = c.CategoryId
@@ -263,12 +264,37 @@ namespace CourseHub.Core.Services
 		public async Task DeleteAsync(int courseId)
 		{
 			var course = await _data.Courses.FindAsync(courseId);
+            var participants = await _data.CoursesParticipants.Where(c => c.CourseId == courseId).ToListAsync();
 
-            if(course != null)
+            foreach (var pid in participants)
+            {
+                _data.CoursesParticipants.Remove(pid);
+            }
+
+            if (course != null)
             {
 				_data.Remove(course);
 			}
             await _data.SaveChangesAsync();
 		}
-	}
+
+        public async Task JoinAsync(int courseId, string userId)
+        {
+            var course = await _data.Courses.FindAsync(courseId);
+
+            if (course != null)
+            {
+                if (!course.CourseParticipants.Any(p => p.ParticipantId == userId))
+                {
+                    course.CourseParticipants.Add(new CourseParticipant()
+                    {
+                        CourseId = courseId,
+                        ParticipantId = userId
+                    });
+
+                    await _data.SaveChangesAsync();
+                }
+            }
+        }
+    }
 }

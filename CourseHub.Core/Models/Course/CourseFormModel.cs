@@ -26,11 +26,11 @@ namespace CourseHub.Core.Models.Course
 
         [Required(ErrorMessage = RequiredMessage)]
         [Display(Name = "Start Date")]
-        public DateTime StartDate { get; set; }
-        
+        public string StartDate { get; set; } = string.Empty;
+
         [Required(ErrorMessage = RequiredMessage)]
         [Display(Name = "End Date")]
-        public DateTime EndDate { get; set; }
+        public string EndDate { get; set; } = string.Empty;
 
         [Required(ErrorMessage = RequiredMessage)]
         [Range(CourseMinFrequency, CourseMaxFrequency, ErrorMessage = FrequencyMessage)]

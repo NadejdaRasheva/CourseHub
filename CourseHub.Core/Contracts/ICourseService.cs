@@ -10,8 +10,8 @@ namespace CourseHub.Core.Contracts
         Task<bool> CategoryExistsAsync(int categoryId);
 
         Task<int> CreateAsync(string name, string description,
-            DateTime startDate, DateTime endDate, int frequency,
-            decimal price, int categoryId, int teacherId);
+            string city, DateTime startDate, DateTime endDate, 
+            int frequency, decimal price, int categoryId, int teacherId);
 
         Task<CourseQueryServiceModel> AllAsync(string? category = null,
             string? searchTerm = null,
@@ -39,5 +39,7 @@ namespace CourseHub.Core.Contracts
         Task<CourseFormModel?> GetCourseFormByIdAsync(int id);
 
         Task DeleteAsync(int courseId);
+
+        Task JoinAsync(int courseId, string userId);
     }
 }

@@ -99,7 +99,7 @@ namespace CourseHub.Controllers
             DateTime _startDate = DateTime.Now;
             DateTime _endDate = DateTime.Now;
             if (!DateTime.TryParseExact(
-                model.StartDate.ToString(),
+                model.StartDate,
                 DataConstants.DateFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
@@ -109,7 +109,7 @@ namespace CourseHub.Controllers
             }
 
             if (!DateTime.TryParseExact(
-                model.EndDate.ToString(),
+                model.EndDate,
                 DataConstants.DateFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
@@ -137,7 +137,7 @@ namespace CourseHub.Controllers
 
 			int? teacherId = await _teachers.GetTeacherIdAsync(User.Id());
 
-			var newCourseId = await _courses.CreateAsync(model.Name, model.Description,
+			var newCourseId = await _courses.CreateAsync(model.Name, model.Description, model.City,
 				_startDate, _endDate, model.Frequency, 
 				model.Price, model.CategoryId, teacherId ?? 0); //not breaking because we have checked
 
@@ -165,7 +165,28 @@ namespace CourseHub.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(int id, CourseFormModel course)
 		{
-			if (await _courses.ExistsAsync(id) == false)
+            DateTime _startDate = DateTime.Now;
+            DateTime _endDate = DateTime.Now;
+            if (!DateTime.TryParseExact(
+                course.StartDate,
+                DataConstants.DateFormat,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out _startDate))
+            {
+                ModelState.AddModelError(nameof(_startDate), $"Invalid date! Format is: {DataConstants.DateFormat}");
+            }
+
+            if (!DateTime.TryParseExact(
+                course.EndDate,
+                DataConstants.DateFormat,
+                CultureInfo.InvariantCulture,
+                DateTimeStyles.None,
+                out _endDate))
+            {
+                ModelState.AddModelError(nameof(_endDate), $"Invalid date! Format is: {DataConstants.DateFormat}");
+            }
+            if (await _courses.ExistsAsync(id) == false)
 			{
 				return BadRequest();
 			}
@@ -188,7 +209,7 @@ namespace CourseHub.Controllers
 			}
 
 			await _courses.EditAsync(id, course.Name, course.Description,
-				course.City,course.StartDate, course.EndDate, course.Frequency,
+				course.City,_startDate, _endDate, course.Frequency,
 				course.Price, course.CategoryId);
 
 			return RedirectToAction(nameof(Details), new { id = id });
@@ -239,8 +260,16 @@ namespace CourseHub.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Join(int id)
 		{
+
+			if (await _courses.ExistsAsync(id) == false)
+			{
+				return BadRequest();
+			}
+
+			await _courses.JoinAsync(id, User.Id());
+
 			return RedirectToAction(nameof(All));
-		}
+        }
 
 		[HttpPost]
 		public async Task<IActionResult> Leave(int id)
