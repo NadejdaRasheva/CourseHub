@@ -272,9 +272,16 @@ namespace CourseHub.Controllers
         }
 
 		[HttpPost]
-		public async Task<IActionResult> Leave(int id)
+		public async Task<IActionResult> Leave(int id, string participantId)
 		{
-			return RedirectToAction(nameof(All));
+            if (await _courses.ExistsAsync(id) == false)
+            {
+                return BadRequest();
+            }
+
+			await _courses.LeaveAsync(id, User.Id());
+
+            return RedirectToAction(nameof(All));
 		}
 	}
 }

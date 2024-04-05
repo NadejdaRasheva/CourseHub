@@ -280,11 +280,17 @@ namespace CourseHub.Core.Services
 
         public async Task JoinAsync(int courseId, string userId)
         {
-            var course = await _data.Courses.FindAsync(courseId);
+            var course = await _data.Courses
+                .Where(c => c.Id == courseId)
+                .Include(c => c.CourseParticipants)
+                .FirstAsync();
+
+            var cp = course.CourseParticipants
+                .FirstOrDefault(cp => cp.ParticipantId == userId);
 
             if (course != null)
             {
-                if (!course.CourseParticipants.Any(p => p.ParticipantId == userId))
+                if (cp == null)
                 {
                     course.CourseParticipants.Add(new CourseParticipant()
                     {
@@ -295,6 +301,22 @@ namespace CourseHub.Core.Services
                     await _data.SaveChangesAsync();
                 }
             }
+        }
+
+        public async Task LeaveAsync(int courseId, string participantId)
+        {
+            var course = await _data.Courses
+                .Where(c => c.Id == courseId)
+                .Include(c => c.CourseParticipants)
+                .FirstAsync();
+
+            var cp = course.CourseParticipants
+                .FirstOrDefault(cp => cp.ParticipantId == participantId);
+
+            course.CourseParticipants.Remove(cp);
+
+            await _data.SaveChangesAsync();
+
         }
     }
 }

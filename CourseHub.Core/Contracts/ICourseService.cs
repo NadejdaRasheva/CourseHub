@@ -41,5 +41,7 @@ namespace CourseHub.Core.Contracts
         Task DeleteAsync(int courseId);
 
         Task JoinAsync(int courseId, string userId);
+
+        Task LeaveAsync(int courseId, string participantId);
     }
 }
