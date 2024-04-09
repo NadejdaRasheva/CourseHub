@@ -1,10 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using CourseHub.Core.Contracts;
+using System.ComponentModel.DataAnnotations;
 using static CourseHub.Core.Constants.MessageConstants;
 using static CourseHub.Infrastructure.Data.Constants.DataConstants;
 
 namespace CourseHub.Core.Models.Course
 {
-	public class CourseServiceModel
+	public class CourseServiceModel : ICourseModel
 	{
         public int Id { get; set; }
 

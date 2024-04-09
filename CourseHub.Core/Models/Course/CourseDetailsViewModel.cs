@@ -1,6 +1,8 @@
-﻿namespace CourseHub.Core.Models.Course
+﻿using CourseHub.Core.Contracts;
+
+namespace CourseHub.Core.Models.Course
 {
-	public class CourseDetailsViewModel
+	public class CourseDetailsViewModel : ICourseModel
 	{
         public int Id { get; set; }
 

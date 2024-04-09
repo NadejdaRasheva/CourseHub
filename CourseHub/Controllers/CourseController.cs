@@ -1,4 +1,5 @@
 ﻿using CourseHub.Core.Contracts;
+using CourseHub.Core.Extensions;
 using CourseHub.Core.Models.Course;
 using CourseHub.Extensions;
 using CourseHub.Infrastructure.Data.Constants;
@@ -66,7 +67,7 @@ namespace CourseHub.Controllers
         }
 
         [HttpGet]
-		public async Task<IActionResult> Details(int id)
+		public async Task<IActionResult> Details(int id, string information)
 		{
 			if (await _courses.ExistsAsync(id) == false)
 			{
@@ -74,6 +75,11 @@ namespace CourseHub.Controllers
 			}
 
 			var courseModel = await _courses.CourseDetailsByIdAsync(id);
+
+			if(information != courseModel.GetInformation())
+			{
+				return BadRequest();
+			}
 
 			return View(courseModel);
 		}
@@ -141,7 +147,7 @@ namespace CourseHub.Controllers
 				_startDate, _endDate, model.Frequency, 
 				model.Price, model.CategoryId, teacherId ?? 0); //not breaking because we have checked
 
-			return RedirectToAction(nameof(Details), new { id = newCourseId });
+			return RedirectToAction(nameof(Details), new { id = newCourseId, information = model.GetInformation() }); ;
         }
 
 		[HttpGet]
@@ -212,7 +218,7 @@ namespace CourseHub.Controllers
 				course.City,_startDate, _endDate, course.Frequency,
 				course.Price, course.CategoryId);
 
-			return RedirectToAction(nameof(Details), new { id = id });
+			return RedirectToAction(nameof(Details), new { id = id, information = course.GetInformation() });
 		}
 
 		[HttpGet]

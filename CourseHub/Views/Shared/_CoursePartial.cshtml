@@ -11,6 +11,7 @@
             </h6>
             <br />
             <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.Id"
+            asp-route-information="@Model.GetInformation()"
                class="btn btn-success">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {

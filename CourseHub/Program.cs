@@ -3,6 +3,7 @@ using CourseHub.Core.Services;
 using CourseHub.Infrastrucure.Data;
 using CourseHub.ModelBinders;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -18,6 +19,7 @@ builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.Requ
 builder.Services.AddControllersWithViews(options =>
 {
     options.ModelBinderProviders.Insert(0, new DecimalModelBinderProvider());
+    options.Filters.Add<AutoValidateAntiforgeryTokenAttribute>();
 });
 builder.Services.AddTransient<ITeacherService, TeacherService>();
 builder.Services.AddTransient<ICourseService, CourseService>();
@@ -44,7 +46,16 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapDefaultControllerRoute();
-app.MapRazorPages();
+app.UseEndpoints(endpoints =>
+{
+    endpoints.MapControllerRoute(
+        name: "Course Details",
+        pattern: "/Course/Details/{id}/{information}",
+        defaults: new { Controller = "Course", Action = "Details"}
+    );
+    endpoints.MapDefaultControllerRoute();
+    endpoints.MapRazorPages();
+});
+
 
 await app.RunAsync();
