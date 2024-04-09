@@ -271,6 +271,10 @@ namespace CourseHub.Controllers
 			{
 				return BadRequest();
 			}
+			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()))
+			{
+				return Unauthorized();
+			}
 
 			await _courses.JoinAsync(id, User.Id());
 

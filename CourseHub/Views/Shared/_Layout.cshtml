@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@inject ITeacherService teacherService
+<!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8" />
@@ -20,20 +21,24 @@
 				</button>
 				<div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
 					<ul class="navbar-nav flex-grow-1">
-						@if (User?.Identity?.IsAuthenticated ?? true)
+						@if (User?.Identity?.IsAuthenticated ?? false)
 						{
 								<li class="nav-item">
 										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="All">All Courses</a>
 								</li>
 								<li class="nav-item">
-										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="Mine">My Courses</a>
-								</li>
-								<li class="nav-item">
 										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="Join">Joined Courses</a>
 								</li>
-								<li class="nav-item">
-										<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="Add">Add Course</a>
-								</li>
+								@if(await teacherService.ExistsByIdAsync(User.Id()))
+							{
+										<li class="nav-item">
+												<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="Mine">My Courses</a>
+										</li>
+										<li class="nav-item">
+												<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="Add">Add Course</a>
+										</li>
+							}
+							
 						}
 					</ul>
 					<partial name="_LoginPartial" />

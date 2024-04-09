@@ -318,5 +318,18 @@ namespace CourseHub.Core.Services
             await _data.SaveChangesAsync();
 
         }
+
+        public async Task<bool> StudentHasJoinedAsync(int courseId, string userId)
+        {
+            var course = await _data.Courses
+                .Where(c => c.Id == courseId)
+                .Include(c => c.CourseParticipants)
+                .FirstAsync();
+
+            var cp = course.CourseParticipants
+                .FirstOrDefault(cp => cp.ParticipantId == userId);
+
+            return cp != null ? true : false;
+        }
     }
 }

@@ -1,13 +1,18 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@inject ITeacherService teacherService
 
 <ul class="navbar-nav">
 @if (SignInManager.IsSignedIn(User))
 {
-    <li class="nav-item">
-        <a  class="nav-link text-dark" asp-area="" asp-controller="Teacher" asp-action="Become">I am a teacher</a>
-    </li>
+    if(await teacherService.ExistsByIdAsync(User.Id()) == false)
+        {
+          <li class="nav-item">
+                <a  class="nav-link text-dark" asp-area="" asp-controller="Teacher" asp-action="Become">Become Teacher</a>
+          </li>
+        }
+
     <li class="nav-item">
         <a  class="nav-link text-dark" asp-area="Identity" asp-page="/Account/Manage/Index" title="Manage">Hello @User.Identity?.Name!</a>
     </li>
