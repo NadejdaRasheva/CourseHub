@@ -18,8 +18,15 @@ namespace CourseHub.Controllers
 
         public IActionResult Index()
         {
-            var model = new IndexViewModel();
-            return View(model);
+            if (User?.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("All", "Course");
+            }
+            else
+            {
+                var model = new IndexViewModel();
+                return View(model);
+            }
         }
 
         [AllowAnonymous]
