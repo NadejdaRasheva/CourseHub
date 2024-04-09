@@ -1,5 +1,6 @@
 using CourseHub.Core.Contracts;
 using CourseHub.Core.Services;
+using CourseHub.Infrastructure.Data.Models;
 using CourseHub.Infrastrucure.Data;
 using CourseHub.ModelBinders;
 using Microsoft.AspNetCore.Identity;
@@ -13,7 +14,13 @@ builder.Services.AddDbContext<CourseHubDbContext>(options =>
     options.UseSqlServer(connectionString));
 builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
+{
+    options.SignIn.RequireConfirmedAccount = false;
+    options.Password.RequireDigit = false;
+    options.Password.RequireNonAlphanumeric = false;
+    options.Password.RequireUppercase = false;
+})
     .AddEntityFrameworkStores<CourseHubDbContext>();
 
 builder.Services.AddControllersWithViews(options =>

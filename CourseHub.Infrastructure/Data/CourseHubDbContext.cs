@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace CourseHub.Infrastrucure.Data
 {
-    public class CourseHubDbContext : IdentityDbContext
+    public class CourseHubDbContext : IdentityDbContext<ApplicationUser>
     {
         public CourseHubDbContext(DbContextOptions<CourseHubDbContext> options)
             : base(options)

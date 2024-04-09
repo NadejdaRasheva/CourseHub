@@ -10,8 +10,8 @@ namespace CourseHub.Infrastructure.Data.SeedDb
 {
     internal class SeedData
     {
-        public IdentityUser TeacherUser { get; set; }
-        public IdentityUser StudentUser { get; set; }
+        public ApplicationUser TeacherUser { get; set; }
+        public ApplicationUser StudentUser { get; set; }
         public Teacher Teacher { get; set; }
         public Category AcademicCategory { get; set; }
         public Category CreativeCategory { get; set; }
@@ -33,8 +33,8 @@ namespace CourseHub.Infrastructure.Data.SeedDb
 
         private void SeedUsers()
         {
-            var hasher = new PasswordHasher<IdentityUser>();
-            TeacherUser = new IdentityUser()
+            var hasher = new PasswordHasher<ApplicationUser>();
+            TeacherUser = new ApplicationUser()
             {
                 Id = "dea12856-c198-4129-b3f3-b893d8395082",
                 UserName = "agent@mail.com",
@@ -43,7 +43,8 @@ namespace CourseHub.Infrastructure.Data.SeedDb
                 NormalizedEmail = "agent@mail.com"
             };
             TeacherUser.PasswordHash = hasher.HashPassword(TeacherUser, "teacher123teacher");
-            StudentUser = new IdentityUser()
+            
+            StudentUser = new ApplicationUser()
             {
                 Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                 UserName = "student@mail.com",

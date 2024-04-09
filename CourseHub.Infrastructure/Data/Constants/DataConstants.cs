@@ -37,5 +37,13 @@ namespace CourseHub.Infrastructure.Data.Constants
         public const int TeacherPhoneNumberMinLength = 7;
 
         public const string DateFormat = "dd/MM/yyyy";
-    }
+
+		public const int UserFirstNameMaxLength = 20;
+
+		public const int UserFirstNameMinLength = 1;
+
+		public const int UserLastNameMaxLength = 15;
+
+		public const int UserLastNameMinLength = 3;
+	}
 }

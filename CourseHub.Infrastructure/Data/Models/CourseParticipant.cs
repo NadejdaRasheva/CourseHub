@@ -16,6 +16,6 @@ namespace CourseHub.Infrastructure.Data.Models
         public string ParticipantId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(ParticipantId))]
-        public IdentityUser Participant { get; set; } = null!;
+        public ApplicationUser Participant { get; set; } = null!;
     }
 }

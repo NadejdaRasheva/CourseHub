@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using CourseHub.Infrastructure.Data.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using System;
@@ -9,12 +10,12 @@ using System.Threading.Tasks;
 
 namespace CourseHub.Infrastructure.Data.SeedDb
 {
-    internal class UserConfiguration : IEntityTypeConfiguration<IdentityUser>
+    internal class UserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {
-        public void Configure(EntityTypeBuilder<IdentityUser> builder)
+        public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             var data = new SeedData();
-            builder.HasData(new IdentityUser[] { data.TeacherUser, data.StudentUser });
+            builder.HasData(new ApplicationUser[] { data.TeacherUser, data.StudentUser });
         }
     }
 }
