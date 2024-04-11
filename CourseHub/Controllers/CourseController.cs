@@ -6,6 +6,7 @@ using CourseHub.Infrastructure.Data.Constants;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Globalization;
+using static CourseHub.Infrastructure.Data.Constants.DataConstants;
 
 namespace CourseHub.Controllers
 {
@@ -105,7 +106,7 @@ namespace CourseHub.Controllers
             DateTime _startDate = DateTime.Now;
             DateTime _endDate = DateTime.Now;
             if (!DateTime.TryParseExact(
-                model.StartDate,
+                String.Format(model.StartDate, DateFormat),
                 DataConstants.DateFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
@@ -115,8 +116,8 @@ namespace CourseHub.Controllers
             }
 
             if (!DateTime.TryParseExact(
-                model.EndDate,
-                DataConstants.DateFormat,
+				String.Format(model.EndDate, DateFormat),
+				DataConstants.DateFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
                 out _endDate))
@@ -158,7 +159,8 @@ namespace CourseHub.Controllers
 				return BadRequest();
 			}
 
-			if(await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false)
+			if(await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false
+				&& User.IsAdmin() == false)
 			{
 				return Unauthorized();
 			}
@@ -171,10 +173,10 @@ namespace CourseHub.Controllers
 		[HttpPost]
 		public async Task<IActionResult> Edit(int id, CourseFormModel course)
 		{
-            DateTime _startDate = DateTime.Now;
-            DateTime _endDate = DateTime.Now;
+            DateTime _startDate = DateTime.Today;
+            DateTime _endDate = DateTime.Today;
             if (!DateTime.TryParseExact(
-                course.StartDate,
+                String.Format(course.StartDate, DateFormat),
                 DataConstants.DateFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
@@ -184,7 +186,7 @@ namespace CourseHub.Controllers
             }
 
             if (!DateTime.TryParseExact(
-                course.EndDate,
+				String.Format(course.EndDate, DateFormat),
                 DataConstants.DateFormat,
                 CultureInfo.InvariantCulture,
                 DateTimeStyles.None,
@@ -197,7 +199,8 @@ namespace CourseHub.Controllers
 				return BadRequest();
 			}
 
-			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false)
+			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false
+				&& User.IsAdmin() == false)
 			{
 				return Unauthorized();
 			}
@@ -211,7 +214,6 @@ namespace CourseHub.Controllers
 			if(!ModelState.IsValid)
 			{
 				course.Categories = await _courses.AllCategoriesAsync();
-				return View(course);
 			}
 
 			await _courses.EditAsync(id, course.Name, course.Description,
@@ -229,7 +231,8 @@ namespace CourseHub.Controllers
 				return BadRequest();
 			}
 
-			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false)
+			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false
+				&& User.IsAdmin() == false)
 			{
 				return Unauthorized();
 			}
@@ -253,7 +256,8 @@ namespace CourseHub.Controllers
 				return BadRequest();
 			}
 
-			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false)
+			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()) == false
+				&& User.IsAdmin() == false)
 			{
 				return Unauthorized();
 			}
@@ -271,7 +275,8 @@ namespace CourseHub.Controllers
 			{
 				return BadRequest();
 			}
-			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id()))
+			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id())
+				&& User.IsAdmin() == false)
 			{
 				return Unauthorized();
 			}

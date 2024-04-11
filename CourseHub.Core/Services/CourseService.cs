@@ -6,6 +6,7 @@ using CourseHub.Infrastructure.Data.Models;
 using CourseHub.Infrastrucure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Runtime.InteropServices;
+using static CourseHub.Infrastructure.Data.Constants.DataConstants;
 
 namespace CourseHub.Core.Services
 {
@@ -246,8 +247,8 @@ namespace CourseHub.Core.Services
                     Name = c.Name,
                     Description = c.Description,
                     City = c.City,
-                    StartDate = c.StartDate.ToString(),
-                    EndDate = c.EndDate.ToString(),
+                    StartDate = c.StartDate.ToString(DateFormat),
+                    EndDate = c.EndDate.ToString(DateFormat),
                     Frequency = c.Frequency,
                     Price = c.Price,
                     CategoryId = c.CategoryId

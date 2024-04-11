@@ -34,21 +34,29 @@
 							<a class="ml-2 btn btn-danger" asp-controller="Course" asp-action="Delete"
                        asp-route-id="@Model.Id">Delete</a>
 					}
+
 					else
 					{
+						if (User.IsAdmin())
+						{
+								<a class="btn btn-warning" asp-controller="Course" asp-action="Edit"
+						   asp-route-id="@Model.Id">Edit</a>
+								<a class="ml-2 btn btn-danger" asp-controller="Course" asp-action="Delete"
+						   asp-route-id="@Model.Id">Delete</a>
+						}
 						if (await courseService.StudentHasJoinedAsync(Model.Id, User.Id()) == false)
 						{
-										<form class="input-group-sm" asp-controller="Course"
-                      asp-action="Join" asp-route-id="@Model.Id" method="post">
-											<input class="btn btn-primary" type="submit" value="Join" />
-										</form>
+							<form class="input-group-sm" asp-controller="Course"
+                    asp-action="Join" asp-route-id="@Model.Id" method="post">
+								<input class="btn btn-primary" type="submit" value="Join" />
+							</form>
 						}
 						else
 						{
-										<form class="input-group-sm" asp-controller="Course"
-                      asp-action="Leave" asp-route-id="@Model.Id" method="post">
-											<input class="btn btn-primary" type="submit" value="Leave" />
-										</form>
+							<form class="input-group-sm" asp-controller="Course"
+                    asp-action="Leave" asp-route-id="@Model.Id" method="post">
+								<input class="btn btn-primary" type="submit" value="Leave" />
+							</form>
 						}
 					}
 				}
