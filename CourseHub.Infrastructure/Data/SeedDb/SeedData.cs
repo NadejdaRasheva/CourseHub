@@ -12,6 +12,8 @@ namespace CourseHub.Infrastructure.Data.SeedDb
     {
         public ApplicationUser TeacherUser { get; set; }
         public ApplicationUser StudentUser { get; set; }
+        public ApplicationUser AdminUser { get; set; }
+        public Teacher AdminTeacher { get; set; }
         public Teacher Teacher { get; set; }
         public Category AcademicCategory { get; set; }
         public Category CreativeCategory { get; set; }
@@ -37,10 +39,12 @@ namespace CourseHub.Infrastructure.Data.SeedDb
             TeacherUser = new ApplicationUser()
             {
                 Id = "dea12856-c198-4129-b3f3-b893d8395082",
-                UserName = "agent@mail.com",
-                NormalizedUserName = "agent@mail.com",
-                Email = "agent@mail.com",
-                NormalizedEmail = "agent@mail.com"
+                UserName = "teacher@mail.com",
+                NormalizedUserName = "teacher@mail.com",
+                Email = "teacher@mail.com",
+                NormalizedEmail = "teacher@mail.com",
+                FirstName = "Teacher",
+                LastName = "Teacher"
             };
             TeacherUser.PasswordHash = hasher.HashPassword(TeacherUser, "teacher123teacher");
             
@@ -50,10 +54,24 @@ namespace CourseHub.Infrastructure.Data.SeedDb
                 UserName = "student@mail.com",
                 NormalizedUserName = "student@mail.com",
                 Email = "student@mail.com",
-                NormalizedEmail = "student@mail.com"
+                NormalizedEmail = "student@mail.com",
+                FirstName = "Student",
+                LastName = "Student"
             };
             StudentUser.PasswordHash = hasher.HashPassword(StudentUser, "student123student");
-        }
+
+			AdminUser = new ApplicationUser()
+			{
+				Id = "bcb4f072-ecca-43c9-ab26-c060c6f364e4",
+				UserName = "admin@mail.com",
+				NormalizedUserName = "admin@mail.com",
+				Email = "admin@mail.com",
+				NormalizedEmail = "admin@mail.com",
+				FirstName = "Great",
+				LastName = "Admin"
+			};
+			AdminUser.PasswordHash = hasher.HashPassword(AdminUser, "admin123admin");
+		}
 
         private void SeedTeacher()
         {
@@ -63,7 +81,14 @@ namespace CourseHub.Infrastructure.Data.SeedDb
                 PhoneNumber = "+359876543210",
                 UserId = TeacherUser.Id
             };
-        }
+
+			AdminTeacher = new Teacher()
+			{
+				Id = 3,
+				PhoneNumber = "+359888888888",
+				UserId = AdminUser.Id
+			};
+		}
 
         private void SeedCategories()
         {

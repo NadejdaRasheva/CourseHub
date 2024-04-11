@@ -15,7 +15,7 @@ namespace CourseHub.Infrastructure.Data.SeedDb
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
             var data = new SeedData();
-            builder.HasData(new ApplicationUser[] { data.TeacherUser, data.StudentUser });
+            builder.HasData(new ApplicationUser[] { data.TeacherUser, data.StudentUser, data.AdminUser });
         }
     }
 }

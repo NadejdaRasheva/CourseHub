@@ -196,6 +196,7 @@ namespace CourseHub.Core.Services
                     Category = c.Category.Name,
                     Teacher = new TeacherServiceModel()
                     {
+                        FullName = $"{c.Teacher.User.FirstName} {c.Teacher.User.LastName}",
                         PhoneNumber = c.Teacher.PhoneNumber,
                         Email = c.Teacher.User.Email
                     }

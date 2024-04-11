@@ -9,7 +9,7 @@ namespace CourseHub.Infrastructure.Data.SeedDb
         public void Configure(EntityTypeBuilder<Teacher> builder)
         {
             var data = new SeedData();
-            builder.HasData(new Teacher[] { data.Teacher });
+            builder.HasData(new Teacher[] { data.Teacher, data.AdminTeacher });
         }
     }
 }

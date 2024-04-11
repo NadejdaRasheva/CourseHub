@@ -21,6 +21,7 @@ builder.Services.AddDefaultIdentity<ApplicationUser>(options =>
     options.Password.RequireNonAlphanumeric = false;
     options.Password.RequireUppercase = false;
 })
+    .AddRoles<IdentityRole>()
     .AddEntityFrameworkStores<CourseHubDbContext>();
 
 builder.Services.AddControllersWithViews(options =>
@@ -64,5 +65,5 @@ app.UseEndpoints(endpoints =>
     endpoints.MapRazorPages();
 });
 
-
+await app.CreateAdminRoleAsync();
 await app.RunAsync();
