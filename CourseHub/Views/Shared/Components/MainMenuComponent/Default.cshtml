@@ -5,10 +5,13 @@
 		<li class="nav-item">
 				<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="All">All Courses</a>
 		</li>
-		<li class="nav-item">
+		@if (!User.IsAdmin())
+		{
+			<li class="nav-item">
 				<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="Join">Joined Courses</a>
-		</li>
-	@if (await teacherService.ExistsByIdAsync(User.Id()))
+			</li>
+		}
+		@if (await teacherService.ExistsByIdAsync(User.Id()))
 	{
 		<li class="nav-item">
 				<a class="nav-link btn btn-sm custom-button-color text-dark" asp-area="" asp-controller="Course" asp-action="Mine">My Courses</a>
