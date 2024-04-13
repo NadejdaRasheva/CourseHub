@@ -15,5 +15,7 @@ namespace CourseHub.Infrastructure.Data.Models
 		[PersonalData]
 		[MaxLength(UserLastNameMaxLength)]
 		public string LastName { get; set; } = string.Empty;
+
+		public Teacher? Teacher { get; set; }
     }
 }

@@ -49,6 +49,11 @@ namespace CourseHub.Controllers
 
 			var userId = User.Id();
 
+			if(User.IsAdmin())
+			{
+				return RedirectToAction("Mine", "Course", new { area = "Admin" });
+			}
+
 			var currentTeacherId = await _teachers.GetTeacherIdAsync(userId);
 			myCourses = await _courses.AllCoursesByTeacherIdAsync(currentTeacherId ?? 0);
 

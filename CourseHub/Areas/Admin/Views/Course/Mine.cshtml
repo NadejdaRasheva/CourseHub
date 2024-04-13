@@ -1,0 +1,37 @@
+﻿@model MyCoursesViewModel
+
+@{
+    ViewBag.Title = "My Courses";
+}
+
+<h2 class="text-center">@ViewBag.Title</h2>
+<hr />
+
+<h4>My Added Courses</h4>
+
+@if (!Model.AddedCourses.Any())
+{
+        <h2 class="text-center">You have no added courses yet!</h2>
+}
+
+<div class="row">
+    @foreach (var course in Model.AddedCourses)
+    {
+        @await Html.PartialAsync("~/Views/Shared/_CoursePartial.cshtml", course)
+    }
+</div>
+
+<h4>My Joined Courses</h4>
+
+@if (!Model.JoinedCourses.Any())
+{
+        <h2 class="text-center">You haven't joined any courses yet!</h2>
+}
+
+<div class="row">
+    @foreach (var course in Model.JoinedCourses)
+    {
+        @await Html.PartialAsync("~/Views/Shared/_CoursePartial.cshtml", course)
+    }
+</div>
+

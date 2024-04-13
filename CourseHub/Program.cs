@@ -31,6 +31,7 @@ builder.Services.AddControllersWithViews(options =>
 });
 builder.Services.AddTransient<ITeacherService, TeacherService>();
 builder.Services.AddTransient<ICourseService, CourseService>();
+builder.Services.AddTransient<IUserService, UserService>();
 
 var app = builder.Build();
 
@@ -60,6 +61,10 @@ app.UseEndpoints(endpoints =>
         name: "Course Details",
         pattern: "/Course/Details/{id}/{information}",
         defaults: new { Controller = "Course", Action = "Details"}
+    );
+    endpoints.MapControllerRoute(
+            name: "areas",
+            pattern: "{area:exists}/{controller=Home}/{action=Index}/{id?}"
     );
     endpoints.MapDefaultControllerRoute();
     endpoints.MapRazorPages();

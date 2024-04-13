@@ -12,16 +12,16 @@
                 <b>@String.Format("{0:f2}", Model.Price) BGN</b>
             </h6>
             <br />
-            <a asp-controller="Course" asp-action="Details" asp-route-id="@Model.Id"
+            <a asp-area="" asp-controller="Course" asp-action="Details" asp-route-id="@Model.Id"
             asp-route-information="@Model.GetInformation()"
                class="btn btn-success">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
                 if (await courseService.HasTeacherWithIdAsync(Model.Id, User.Id()))
                 {
-                        <a asp-controller="Course" asp-action="Edit" asp-route-id="@Model.Id"
+                        <a asp-area="" asp-controller="Course" asp-action="Edit" asp-route-id="@Model.Id"
             class="btn btn-warning">Edit</a>
-                        <a asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
+                        <a asp-area="" asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
         class="btn btn-danger">Delete</a>
                 }
 
@@ -29,22 +29,22 @@
                 {
                     if (User.IsAdmin())
                     {
-                            <a asp-controller="Course" asp-action="Edit" asp-route-id="@Model.Id"
+                        <a asp-area="" asp-controller="Course" asp-action="Edit" asp-route-id="@Model.Id"
                         class="btn btn-warning">Edit</a>
-                            <a asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
+                        <a asp-area="" asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
                         class="btn btn-danger">Delete</a>
                     }
 
                     if (await courseService.StudentHasJoinedAsync(Model.Id, User.Id()) == false)
                     {
-                            <form class="input-group-sm" asp-controller="Course"
+                            <form class="input-group-sm" asp-controller="Course" asp-area=""
                         asp-action="Join" asp-route-id="@Model.Id" method="post">
                                 <input class="btn btn-primary" type="submit" value="Join" />
                             </form>
                     }
                     else
                     {
-                            <form class="input-group-sm" asp-controller="Course"
+                            <form class="input-group-sm" asp-controller="Course" asp-area=""
                         asp-action="Leave" asp-route-id="@Model.Id" method="post">
                                 <input class="btn btn-primary" type="submit" value="Leave" />
                             </form>
