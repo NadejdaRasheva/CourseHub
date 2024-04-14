@@ -153,6 +153,8 @@ namespace CourseHub.Controllers
 				_startDate, _endDate, model.Frequency, 
 				model.Price, model.CategoryId, teacherId ?? 0); //not breaking because we have checked
 
+			TempData["message"] = "You have successfully added a new course!";
+
 			return RedirectToAction(nameof(Details), new { id = newCourseId, information = model.GetInformation() }); ;
         }
 
@@ -225,6 +227,8 @@ namespace CourseHub.Controllers
 				course.City,_startDate, _endDate, course.Frequency,
 				course.Price, course.CategoryId);
 
+			TempData["message"] = "You have successfully edited thsi course!";
+
 			return RedirectToAction(nameof(Details), new { id = id, information = course.GetInformation() });
 		}
 
@@ -269,6 +273,8 @@ namespace CourseHub.Controllers
 
 
 			await _courses.DeleteAsync(course.Id);
+
+			TempData["message"] = "You have successfully deleted this course!";
 			return RedirectToAction(nameof(All));
 		}
 
@@ -288,6 +294,8 @@ namespace CourseHub.Controllers
 
 			await _courses.JoinAsync(id, User.Id());
 
+			TempData["message"] = "You have successfully joined this course!";
+
 			return RedirectToAction(nameof(Join));
         }
 
@@ -301,7 +309,9 @@ namespace CourseHub.Controllers
 
 			await _courses.LeaveAsync(id, User.Id());
 
-            return RedirectToAction(nameof(All));
+			TempData["message"] = "You have successfully left this course!";
+
+			return RedirectToAction(nameof(All));
 		}
 	}
 }

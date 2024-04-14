@@ -42,6 +42,9 @@ namespace CourseHub.Controllers
 			}
 
 			await _teachers.CreateAsync(userId, model.PhoneNumber);
+
+			TempData["message"] = "You have successfully become a teacher";
+
 			return RedirectToAction(nameof(CourseController.All), "Course");
 		}
 	}
