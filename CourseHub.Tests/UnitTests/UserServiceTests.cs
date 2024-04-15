@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CourseHub.Tests.UnitTests
 {
+	[TestFixture]
 	public class UserServiceTests : UnitTestsBase
 	{
 		private IUserService _userService;
