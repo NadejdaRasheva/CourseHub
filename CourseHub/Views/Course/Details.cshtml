@@ -29,9 +29,9 @@
 				{
 					if (await courseService.HasTeacherWithIdAsync(Model.Id, User.Id()))
 					{
-							<a class="btn btn-warning" asp-controller="Course" asp-action="Edit"
+						<a class="btn custom-button-course-color" asp-controller="Course" asp-action="Edit"
                        asp-route-id="@Model.Id">Edit</a>
-							<a class="ml-2 btn btn-danger" asp-controller="Course" asp-action="Delete"
+						<a class="ml-2 btn custom-button-course-color" asp-controller="Course" asp-action="Delete"
                        asp-route-id="@Model.Id">Delete</a>
 					}
 
@@ -39,23 +39,23 @@
 					{
 						if (User.IsAdmin())
 						{
-								<a class="btn btn-warning" asp-controller="Course" asp-action="Edit"
+							<a class="btn custom-button-course-color" asp-controller="Course" asp-action="Edit"
 						   asp-route-id="@Model.Id">Edit</a>
-								<a class="ml-2 btn btn-danger" asp-controller="Course" asp-action="Delete"
+							<a class="ml-2 btn custom-button-course-color" asp-controller="Course" asp-action="Delete"
 						   asp-route-id="@Model.Id">Delete</a>
 						}
 						if (await courseService.StudentHasJoinedAsync(Model.Id, User.Id()) == false)
 						{
 							<form class="input-group-sm" asp-controller="Course"
                     asp-action="Join" asp-route-id="@Model.Id" method="post">
-								<input class="btn btn-primary" type="submit" value="Join" />
+								<input class="btn custom-button-course-color" type="submit" value="Join" />
 							</form>
 						}
 						else
 						{
 							<form class="input-group-sm" asp-controller="Course"
                     asp-action="Leave" asp-route-id="@Model.Id" method="post">
-								<input class="btn btn-primary" type="submit" value="Leave" />
+								<input class="btn custom-button-course-color" type="submit" value="Leave" />
 							</form>
 						}
 					}

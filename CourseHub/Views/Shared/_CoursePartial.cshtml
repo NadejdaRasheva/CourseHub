@@ -14,15 +14,15 @@
             <br />
             <a asp-area="" asp-controller="Course" asp-action="Details" asp-route-id="@Model.Id"
             asp-route-information="@Model.GetInformation()"
-               class="btn btn-success">Details</a>
+               class="btn custom-button-course-color">Details</a>
             @if (this.User.Identity.IsAuthenticated)
             {
                 if (await courseService.HasTeacherWithIdAsync(Model.Id, User.Id()))
                 {
                         <a asp-area="" asp-controller="Course" asp-action="Edit" asp-route-id="@Model.Id"
-            class="btn btn-warning">Edit</a>
+                       class="btn custom-button-course-color">Edit</a>
                         <a asp-area="" asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
-        class="btn btn-danger">Delete</a>
+                       class="btn custom-button-course-color">Delete</a>
                 }
 
                 else
@@ -30,23 +30,23 @@
                     if (User.IsAdmin())
                     {
                         <a asp-area="" asp-controller="Course" asp-action="Edit" asp-route-id="@Model.Id"
-                        class="btn btn-warning">Edit</a>
+                           class="btn custom-button-course-color">Edit</a>
                         <a asp-area="" asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
-                        class="btn btn-danger">Delete</a>
+                           class="btn custom-button-course-color">Delete</a>
                     }
 
                     if (await courseService.StudentHasJoinedAsync(Model.Id, User.Id()) == false)
                     {
-                            <form class="input-group-sm" asp-controller="Course" asp-area=""
+                        <form style='display:inline;' class="input-group" asp-controller="Course" asp-area=""
                         asp-action="Join" asp-route-id="@Model.Id" method="post">
-                                <input class="btn btn-primary" type="submit" value="Join" />
+                            <input style='display:inline;' class="btn custom-button-course-color" type="submit" value="Join" />
                             </form>
                     }
                     else
                     {
-                            <form class="input-group-sm" asp-controller="Course" asp-area=""
+                        <form style='display:inline;' class="input-group" asp-controller="Course" asp-area=""
                         asp-action="Leave" asp-route-id="@Model.Id" method="post">
-                                <input class="btn btn-primary" type="submit" value="Leave" />
+                            <input style='display:inline;' class="btn custom-button-course-color" type="submit" value="Leave" />
                             </form>
                     }
                 } 

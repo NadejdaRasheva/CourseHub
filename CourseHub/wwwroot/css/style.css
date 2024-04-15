@@ -1,4 +1,6 @@
-﻿h1, h2, hr, footer > div {
+﻿@import url(https://fonts.googleapis.com/css2?family=Sofia&display=swap) 
+
+h1, h2, hr, footer > div {
     color: white;
     font-weight: 500;
 }
@@ -20,13 +22,37 @@ footer {
     justify-content: center;
 }
 
+.home-page{
+    font-family:'Comic Sans MS';
+    margin-top: 200px;
+}
+
+.home-page h1{
+    font-size: 6rem;
+    font-weight: 700;
+    margin-bottom: 3rem;
+}
+
+.home-page p{
+    font-size: 1.7em;
+    font-weight: 400;
+}
 
 .custom-button-color {
     background-color: #4af7ac;
     border-color: #4af7ac;
-    
+    margin-right: 10px;
 }
 
-    .custom-button-color:hover {
-        background-color: #05f78d;
-    }
+.custom-button-color:hover {
+    background-color: #05f78d;
+}
+
+.custom-button-course-color {
+    background-color: #fad220;
+    border-color: #fad220;
+}
+
+.custom-button-course-color:hover {
+    background-color: #deba18;
+}
