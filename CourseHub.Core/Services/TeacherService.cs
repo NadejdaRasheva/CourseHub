@@ -26,13 +26,13 @@ namespace CourseHub.Core.Services
 
         public async Task CreateAsync(string userId, string phoneNumber)
         {
-			await _data.Teachers.AddAsync(new Teacher()
+			var teacher = new Teacher()
             {
                 UserId = userId,
                 PhoneNumber = phoneNumber
-            });
-
-            await _data.SaveChangesAsync();
+            };
+            await _data.Teachers.AddAsync(teacher);
+			await _data.SaveChangesAsync();
         }
 
         public async Task<int?> GetTeacherIdAsync(string userId)

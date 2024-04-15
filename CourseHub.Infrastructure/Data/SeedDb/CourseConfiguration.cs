@@ -18,7 +18,7 @@ namespace CourseHub.Infrastructure.Data.SeedDb
                 .HasOne(c => c.Teacher)
                 .WithMany(c => c.Courses)
                 .HasForeignKey(c => c.TeacherId)
-                .OnDelete(DeleteBehavior.Restrict);
+				.OnDelete(DeleteBehavior.Restrict);
 
             var data = new SeedData();
             builder.HasData(new Course[]

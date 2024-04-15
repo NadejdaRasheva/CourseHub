@@ -19,14 +19,15 @@ namespace CourseHub.Infrastructure.Data.Models
         [Comment("Teacher's phone number")]
         public string PhoneNumber { get; set; } = string.Empty;
 
-        public List<Course> Courses { get; set; } = new List<Course>();
+		public IEnumerable<Course> Courses { get; set; } = new List<Course>();
 
-        [Required]
+		[Required]
         [Comment("User identifier")]
         public string UserId { get; set; } = string.Empty;
 
         [ForeignKey(nameof(UserId))]
         public ApplicationUser User { get; set; } = null!;
 
-    }
+
+	}
 }

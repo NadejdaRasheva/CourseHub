@@ -34,5 +34,15 @@ namespace CourseHub.Tests.UnitTests
 			var result = await _teacherService.UserWithPhoneNumberExistsAsync(Teacher.PhoneNumber);
 			Assert.IsTrue(result);
 		}
+
+		//[Test]
+		//public async Task CreateAsync_ShouldWorkProperly()
+		//{
+		//	var teachersCountBefore = _data.Teachers.Count();
+		//	await _teacherService.CreateAsync(Teacher.UserId, Teacher.PhoneNumber);
+
+		//	var teachersCountAfter = _data.Teachers.Count();
+		//	Assert.That(teachersCountAfter, Is.EqualTo(teachersCountBefore + 1)); ;
+		//}
 	}
 }

@@ -39,13 +39,14 @@ namespace CourseHub.Infrastrucure.Data
                 .HasForeignKey(c => c.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
 
-			builder.Entity<Course>()
-				.HasOne(c => c.Teacher)
-				.WithMany()
+            builder.Entity<Course>()
+                .HasOne(c => c.Teacher)
+                .WithMany(c => c.Courses)
+				.IsRequired(false)
 				.HasForeignKey(c => c.TeacherId)
-				.OnDelete(DeleteBehavior.Restrict);
+                .OnDelete(DeleteBehavior.Restrict);
 
-			if (_seedDb)
+            if (_seedDb)
             {
 				builder.ApplyConfiguration(new UserConfiguration());
 				builder.ApplyConfiguration(new TeacherConfiguration());
@@ -56,9 +57,9 @@ namespace CourseHub.Infrastrucure.Data
             base.OnModelCreating(builder);
         }
 
-        public DbSet<Teacher> Teachers { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Course> Courses { get; set; }
-        public DbSet<CourseParticipant> CoursesParticipants { get; set; }
+        public DbSet<Teacher> Teachers { get; set; } = null!;
+        public DbSet<Category> Categories { get; set; } = null!;
+		public DbSet<Course> Courses { get; set; } = null!;
+        public DbSet<CourseParticipant> CoursesParticipants { get; set; } = null!;
     }
 }
