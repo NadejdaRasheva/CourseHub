@@ -10,8 +10,9 @@ namespace CourseHub.Core.Constants
     {
         public const string RequiredMessage = "The {0} field is required";
         public const string LengthMessage = "The field {0} must be between {2} and {1} characters";
-        public const string FrequencyMessage = "The field {0} must be between {2} and {1}";
+        public const string FrequencyMessage = "The field {0} must be between {1} and {2}";
         public const string PriceMessage = "The price of the course must be between {1} and {2} leva";
         public const string RatingMessage = "The rating must be between {1} and {2}";
-    }
+		public const string GradeMessage = "The grade must be between {1} and {2}";
+	}
 }
