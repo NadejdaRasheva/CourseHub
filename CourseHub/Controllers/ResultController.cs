@@ -27,6 +27,10 @@ namespace CourseHub.Controllers
             {
                 return BadRequest();
             }
+            if (await courseService.CourseHasEndedAsync(id) == false)
+            {
+                return BadRequest();
+            }
 
             var model = await resultService.GetCourseStudents(id);
 
@@ -41,6 +45,10 @@ namespace CourseHub.Controllers
             {
                 return RedirectToAction(nameof(AllStudents), new { id = id });
             }
+			if (await courseService.CourseHasEndedAsync(id) == false)
+			{
+				return BadRequest();
+			}
 
 			if (await resultService.GetStudentResult(id, studentId) != null)
 			{
@@ -65,8 +73,12 @@ namespace CourseHub.Controllers
             {
                 return RedirectToAction(nameof(AllStudents), new { id = model.CourseId });
             }
-            
-            if(await resultService.GetStudentResult(model.CourseId, model.StudentId) != null)
+			if (await courseService.CourseHasEndedAsync(model.CourseId) == false)
+			{
+				return BadRequest();
+			}
+
+			if (await resultService.GetStudentResult(model.CourseId, model.StudentId) != null)
             {
                 var result = await resultService.GetStudentResult(model.CourseId, model.StudentId);
                 var resultId = result.Id;
@@ -94,6 +106,10 @@ namespace CourseHub.Controllers
 			{
 				return BadRequest();
 			}
+			if (await courseService.CourseHasEndedAsync(id) == false)
+			{
+				return BadRequest();
+			}
 
 			if (await resultService.HasTeacherWithIdAsync(id, User.Id()) == false && User.IsAdmin() == false)
 			{
@@ -109,6 +125,10 @@ namespace CourseHub.Controllers
 		public async Task<IActionResult> Edit(int id, ResultFormViewModel model)
 		{
 			if (await resultService.ResultExistsAsync(id) == false)
+			{
+				return BadRequest();
+			}
+			if (await courseService.CourseHasEndedAsync(id) == false)
 			{
 				return BadRequest();
 			}
@@ -129,6 +149,10 @@ namespace CourseHub.Controllers
         [HttpGet]
         public async Task<IActionResult> StudentResult(int courseId, string studentId)
         {
+			if (await courseService.CourseHasEndedAsync(courseId) == false)
+			{
+				return BadRequest();
+			}
 			var model = await resultService.GetStudentResult(courseId, studentId);
 
             return View(model);
