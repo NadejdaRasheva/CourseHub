@@ -1,0 +1,10 @@
+﻿@model ResultFormViewModel
+
+
+<h2 class="text-center">Add a review for @Model.StudentName</h2>
+
+<partial name="_ResultFormPartial" model="@Model" />
+
+@section Scripts {
+	<partial name="_ValidationScriptsPartial" />
+}

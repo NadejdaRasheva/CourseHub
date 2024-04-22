@@ -16,6 +16,7 @@
             asp-route-information="@Model.GetInformation()"
                class="btn custom-button-course-color">Details</a>
             <a asp-action="AllForCourse" asp-controller="Review" asp-route-id="@Model.Id" class="btn custom-button-course-color">Reviews</a>
+            <a asp-action="StudentResult" asp-controller="Result" asp-route-courseId="@Model.Id" asp-route-studentId="@User.Id()" class="btn custom-button-course-color">Result</a>
             @if (this.User.Identity.IsAuthenticated)
             {
                 if (await courseService.HasTeacherWithIdAsync(Model.Id, User.Id()))
@@ -24,6 +25,8 @@
                        class="btn custom-button-course-color">Edit</a>
                         <a asp-area="" asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
                        class="btn custom-button-course-color">Delete</a>
+                    <a asp-area="" asp-controller="Result" asp-action="AllStudents" asp-route-id="@Model.Id"
+                       class="btn custom-button-course-color">Results</a>
                 }
 
                 else

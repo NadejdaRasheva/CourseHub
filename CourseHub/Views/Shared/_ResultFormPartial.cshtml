@@ -1,0 +1,21 @@
+﻿@model ResultFormViewModel
+
+<form method="post">
+	<div class="mb-3">
+		<label asp-for="Grade" class="form-label">Grade</label>
+		<input asp-for="Grade" class="form-control" required />
+		<span asp-validation-for="Grade" class="text-danger"></span>
+	</div>
+
+	<div class="mb-3">
+		<label asp-for="Feedback" class="form-label">Feedback</label>
+		<input asp-for="Feedback" class="form-control" required />
+		<span asp-validation-for="Feedback" class="text-danger"></span>
+	</div>
+
+	<div class="mb-3">
+		<input type="hidden" asp-for="CourseId" />
+	</div>
+
+	<button type="submit" class="btn custom-button-course-color">Finish</button>
+</form>

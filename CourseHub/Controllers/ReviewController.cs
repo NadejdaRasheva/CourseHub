@@ -84,14 +84,14 @@ namespace CourseHub.Controllers
                 return Unauthorized();
             }
 
-            int carId = await reviewService.GetReviewCourseIdAsync(id);
+            int courseId = await reviewService.GetReviewCourseIdAsync(id);
 
             await reviewService.RemoveReviewAsync(id);
 
             TempData["message"] = "Review successfully removed.";
             TempData["messageType"] = "success";
 
-            return RedirectToAction(nameof(AllForCourse), new { id = carId });
+            return RedirectToAction(nameof(AllForCourse), new { id = courseId });
         }
 
         [HttpGet]

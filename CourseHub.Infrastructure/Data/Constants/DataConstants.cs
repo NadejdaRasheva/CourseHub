@@ -53,5 +53,13 @@ namespace CourseHub.Infrastructure.Data.Constants
 		public const int ReviewMinRating = 1;
 
 		public const int ReviewMaxRating = 5;
+
+        public const int ResultFeedbackMinLength = 10;
+
+        public const int ResultFeedbackMaxLength = 300;
+
+        public const int ResultMinGrade = 2;
+
+        public const int ResultMaxGrade = 6;
 	}
 }

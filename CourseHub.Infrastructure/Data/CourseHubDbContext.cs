@@ -61,6 +61,7 @@ namespace CourseHub.Infrastrucure.Data
         public DbSet<Category> Categories { get; set; } = null!;
 		public DbSet<Course> Courses { get; set; } = null!;
 		public DbSet<Review> Reviews { get; set; }
+        public DbSet<Result> Results { get; set; } = null!;
 		public DbSet<CourseParticipant> CoursesParticipants { get; set; } = null!;
     }
 }

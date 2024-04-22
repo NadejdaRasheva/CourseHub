@@ -4,6 +4,7 @@ using CourseHub.Infrastrucure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CourseHub.Infrastructure.Migrations
 {
     [DbContext(typeof(CourseHubDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240422091721_ResultsTableAdded")]
+    partial class ResultsTableAdded
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +103,7 @@ namespace CourseHub.Infrastructure.Migrations
                         {
                             Id = "dea12856-c198-4129-b3f3-b893d8395082",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "2401c8ba-335c-4d93-a220-4d18fb683298",
+                            ConcurrencyStamp = "5870af5f-0884-4a72-ae26-e3488674de97",
                             Email = "teacher@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Teacher",
@@ -109,9 +111,9 @@ namespace CourseHub.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "teacher@mail.com",
                             NormalizedUserName = "teacher@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEIzTy4rHRmjOavjEVPbu02o53QVTTs6kjnsSxeWddMBUAoxVso911dSgzn1ljKPVaA==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEK+JllppPsMUIBc8FkJ7deqGv4ct7N22q2m56OaJl/o0dvZGAWEWWOlp/JMaJCSR3A==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "22dd3bfb-c593-462b-8920-698ef80a4fdb",
+                            SecurityStamp = "989bfae3-b3cc-4048-8bc3-0a1499f51652",
                             TwoFactorEnabled = false,
                             UserName = "teacher@mail.com"
                         },
@@ -119,7 +121,7 @@ namespace CourseHub.Infrastructure.Migrations
                         {
                             Id = "6d5800ce-d726-4fc8-83d9-d6b3ac1f591e",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "896a67fb-82dc-4948-b650-0071860b28dc",
+                            ConcurrencyStamp = "269f78df-faca-4473-a02f-1cf34ca8ad8d",
                             Email = "student@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Student",
@@ -127,9 +129,9 @@ namespace CourseHub.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "student@mail.com",
                             NormalizedUserName = "student@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEBT/q/23bBFTV0ybBuajz8dmqHeaDfnUzCqIVOJiJBiBt/l72INfob6F0YckmzD47w==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEI3ZvDKvKiLPdS9NcK/RR6Lyt+SikLwYfXylCmL0Y4ONuAe5OgYNvJdJiLWb95wJyQ==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "b9a04787-173e-4546-a548-44dccb93be7c",
+                            SecurityStamp = "dc66f386-516b-42b6-a890-c1d063d16006",
                             TwoFactorEnabled = false,
                             UserName = "student@mail.com"
                         },
@@ -137,7 +139,7 @@ namespace CourseHub.Infrastructure.Migrations
                         {
                             Id = "bcb4f072-ecca-43c9-ab26-c060c6f364e4",
                             AccessFailedCount = 0,
-                            ConcurrencyStamp = "0190ddc5-efb2-426c-aef5-4633cc3dae6a",
+                            ConcurrencyStamp = "79a50d4c-846c-438a-ab36-15f643f05663",
                             Email = "admin@mail.com",
                             EmailConfirmed = false,
                             FirstName = "Great",
@@ -145,9 +147,9 @@ namespace CourseHub.Infrastructure.Migrations
                             LockoutEnabled = false,
                             NormalizedEmail = "admin@mail.com",
                             NormalizedUserName = "admin@mail.com",
-                            PasswordHash = "AQAAAAEAACcQAAAAEHojXFwBIORfC8aDDnHTEjRs5zq57ijzzzstDnRdj8RI3UAH5EYCcQ0uJZh6J1+7cQ==",
+                            PasswordHash = "AQAAAAEAACcQAAAAEGZz7S0PX6Ca0LExOcQFXQOAbG7laesdZB000Ure8/q3Cex3fxHh7tHqQF4iLi4Dzw==",
                             PhoneNumberConfirmed = false,
-                            SecurityStamp = "8919f670-5a11-4021-836e-13ff6c65df31",
+                            SecurityStamp = "6a8733d8-b61c-4714-a466-8e05feb01157",
                             TwoFactorEnabled = false,
                             UserName = "admin@mail.com"
                         });
@@ -341,8 +343,8 @@ namespace CourseHub.Infrastructure.Migrations
                         .HasMaxLength(300)
                         .HasColumnType("nvarchar(300)");
 
-                    b.Property<decimal>("Grade")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Grade")
+                        .HasColumnType("int");
 
                     b.Property<string>("StudentId")
                         .IsRequired()
