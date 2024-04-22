@@ -332,5 +332,13 @@ namespace CourseHub.Core.Services
 
 			return cp != null ? true : false;
 		}
+
+		public async Task<bool> CourseHasEndedAsync(int courseId)
+		{
+			var course = await _data.Courses
+				.FirstAsync(c => c.Id == courseId);
+
+			return course.EndDate < DateTime.Today;
+		}
 	}
 }

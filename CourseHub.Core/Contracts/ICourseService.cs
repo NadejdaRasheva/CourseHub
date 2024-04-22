@@ -45,5 +45,6 @@ namespace CourseHub.Core.Contracts
         Task LeaveAsync(int courseId, string participantId);
 
         Task<bool> StudentHasJoinedAsync(int courseId, string userId);
+        Task<bool> CourseHasEndedAsync(int courseId);
     }
 }

@@ -286,6 +286,10 @@ namespace CourseHub.Controllers
 			{
 				return BadRequest();
 			}
+			if(await _courses.CourseHasEndedAsync(id))
+			{
+				return BadRequest();
+			}
 			if (await _courses.HasTeacherWithIdAsync(id, this.User.Id())
 				&& User.IsAdmin() == false)
 			{
