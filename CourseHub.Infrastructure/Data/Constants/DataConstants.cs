@@ -45,5 +45,13 @@ namespace CourseHub.Infrastructure.Data.Constants
 		public const int UserLastNameMaxLength = 15;
 
 		public const int UserLastNameMinLength = 3;
+
+		public const int ReviewCommentsMinLength = 0;
+
+		public const int ReviewCommentsMaxLength = 300;
+
+		public const int ReviewMinRating = 1;
+
+		public const int ReviewMaxRating = 5;
 	}
 }

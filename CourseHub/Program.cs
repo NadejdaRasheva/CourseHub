@@ -32,6 +32,7 @@ builder.Services.AddControllersWithViews(options =>
 builder.Services.AddTransient<ITeacherService, TeacherService>();
 builder.Services.AddTransient<ICourseService, CourseService>();
 builder.Services.AddTransient<IUserService, UserService>();
+builder.Services.AddTransient<IReviewService, ReviewService>();
 
 var app = builder.Build();
 

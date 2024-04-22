@@ -15,6 +15,7 @@
             <a asp-area="" asp-controller="Course" asp-action="Details" asp-route-id="@Model.Id"
             asp-route-information="@Model.GetInformation()"
                class="btn custom-button-course-color">Details</a>
+            <a asp-action="AllForCourse" asp-controller="Review" asp-route-id="@Model.Id" class="btn custom-button-course-color">Reviews</a>
             @if (this.User.Identity.IsAuthenticated)
             {
                 if (await courseService.HasTeacherWithIdAsync(Model.Id, User.Id()))

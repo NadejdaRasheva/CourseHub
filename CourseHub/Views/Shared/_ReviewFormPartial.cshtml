@@ -1,0 +1,21 @@
+﻿@model ReviewFormViewModel
+
+<form method="post">
+	<div class="mb-3">
+		<label asp-for="Rating" class="form-label">Rating</label>
+		<input asp-for="Rating" class="form-control" required />
+		<span asp-validation-for="Rating" class="text-danger"></span>
+	</div>
+
+	<div class="mb-3">
+		<label asp-for="Comment" class="form-label">Comment</label>
+		<input asp-for="Comment" class="form-control" required />
+		<span asp-validation-for="Comment" class="text-danger"></span>
+	</div>
+
+	<div class="mb-3">
+		<input type="hidden" asp-for="CourseId" />
+	</div>
+
+	<button type="submit" class="btn btn-success">Finish</button>
+</form>

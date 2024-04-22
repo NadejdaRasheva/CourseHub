@@ -1,0 +1,70 @@
+﻿﻿@using System.Security.Claims
+@model IEnumerable<ReviewAllViewModel>
+
+<style>
+	.review-container {
+		border: 1px solid #ccc;
+		border-radius: 5px;
+		padding: 10px;
+		margin-bottom: 15px;
+		box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+		background-color: white;
+	}
+
+		.review-container h3 {
+			margin-top: 0;
+			margin-bottom: 5px;
+			color: #333;
+		}
+
+		.review-container p {
+			margin: 0;
+		}
+
+	.review-rating {
+		font-size: 16px;
+		margin-bottom: 5px;
+	}
+</style>
+
+
+@if (Model.Any())
+{
+	@foreach (var review in Model)
+	{
+		<div class="review-container">
+			<div class="d-flex justify-content-between align-items-start">
+				<p class="review-rating">Rating: @review.Rating</p>
+				@if (review.ReviewerId == User.Id())
+				{
+					<div class="d-flex align-items-center">
+						<a style="margin-right: 10px" asp-area="" asp-controller="Review" asp-action="Edit" asp-route-id="@review.Id"
+				  class="btn custom-button-course-color">Edit</a>
+						<form asp-action="Remove" asp-controller="Review" asp-route-id="@review.Id" method="post">
+							<input style='display:inline;' class="btn custom-button-course-color" type="submit" value="Delete">
+						</form>
+					</div>
+				}
+			</div>
+			<div class="fw-bold mb-2">
+				<p>@review.Comment</p>
+			</div>
+			<div>
+				<i>- @review.Username</i>
+			</div>
+		</div>
+	}
+	<div class="text-center">
+		<a asp-action="Add" asp-controller="Review" asp-route-id="@Convert.ToInt32(ViewData["courseId"])" class="btn custom-button-course-color">Add review</a>
+	</div>
+
+}
+else
+{
+	<div class="container d-flex justify-content-center align-items-center vh-100">
+		<div class="text-center" style="margin-bottom: 200px;">
+			<h1>There are not any reviews for this course yet!</h1>
+			<a asp-action="Add" asp-controller="Review" asp-route-id="@Convert.ToInt32(ViewData["courseId"])" class="btn custom-button-course-color">Add the first one!</a>
+		</div>
+	</div>
+}
