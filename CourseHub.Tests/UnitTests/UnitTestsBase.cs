@@ -76,7 +76,6 @@ namespace CourseHub.Tests.UnitTests
 				Category = new Category() { Name = "Personal Development" }
 			};
 			_data.Courses.Add(secondCourse);
-			_data.SaveChanges();
 
 			Review = new Review()
 			{

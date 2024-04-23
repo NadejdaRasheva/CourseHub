@@ -141,17 +141,17 @@ namespace CourseHub.Tests.UnitTests
 		[Test]
 		public async Task EditAsync_ShouldEditCorrectReview()
 		{
-			var review = new Review()
-			{
-				Rating = 5,
-				Comment = "Very useful course!",
-				Course = Course,
-				CourseId = Course.Id,
-				Reviewer = Student,
-				ReviewerId = Student.Id,
-			};
-			await _data.Reviews.AddAsync(review);
-			await _data.SaveChangesAsync();
+			//var review = new Review()
+			//{
+			//	Rating = 5,
+			//	Comment = "Very useful course!",
+			//	Course = Course,
+			//	CourseId = Course.Id,
+			//	Reviewer = Student,
+			//	ReviewerId = Student.Id,
+			//};
+			//await _data.Reviews.AddAsync(review);
+			//await _data.SaveChangesAsync();
 
 			var reviewModel = new ReviewFormViewModel()
 			{
@@ -161,9 +161,9 @@ namespace CourseHub.Tests.UnitTests
 			};
 
 
-			await _reviewService.EditAsync(review.Id, reviewModel);
+			await _reviewService.EditAsync(Review.Id, reviewModel);
 
-			var editedReview = _data.Reviews.Find(review.Id);
+			var editedReview = _data.Reviews.Find(Review.Id);
 
 			Assert.That(reviewModel.Rating, Is.EqualTo(editedReview.Rating));
 			Assert.That(reviewModel.Comment, Is.EqualTo(editedReview.Comment));
