@@ -38,7 +38,7 @@ namespace CourseHub.Core.Services
 			return reviews;
 		}
 
-		public async Task AddAsync(ReviewFormViewModel model, string reviewerId)
+		public async Task CreateAsync(ReviewFormViewModel model, string reviewerId)
 		{
 			var review = new Review()
 			{

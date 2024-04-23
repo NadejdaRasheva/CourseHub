@@ -23,7 +23,7 @@ namespace CourseHub.Core.Services
 			_data = data;
         }
 
-        public async Task AddAsync(ResultFormViewModel model)
+        public async Task CreateAsync(ResultFormViewModel model)
 		{
 			var result = new Result()
 			{

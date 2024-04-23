@@ -90,7 +90,7 @@ namespace CourseHub.Controllers
                 return View(model);
             }
 
-            await resultService.AddAsync(model);
+            await resultService.CreateAsync(model);
 
             TempData["message"] = "Result successfully added.";
             TempData["messageType"] = "success";

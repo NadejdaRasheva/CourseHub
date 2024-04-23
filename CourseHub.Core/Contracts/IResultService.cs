@@ -6,7 +6,7 @@ namespace CourseHub.Core.Contracts
 	public interface IResultService
 	{
 		Task<IEnumerable<ResultTeacherViewModel>> GetCourseStudents(int courseId);
-		Task AddAsync(ResultFormViewModel model);
+		Task CreateAsync(ResultFormViewModel model);
 		Task<bool> ResultExistsAsync(int resultId);
 		Task<ResultViewModel> GetStudentResult(int courseId, string studentId);
 		Task<bool> HasTeacherWithIdAsync(int resultId, string teacherId);

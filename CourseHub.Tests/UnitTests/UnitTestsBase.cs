@@ -23,6 +23,7 @@ namespace CourseHub.Tests.UnitTests
 		public ApplicationUser Student { get; private set; }
 		public Teacher Teacher { get; private set; }
 		public Course Course { get; private set; }
+		public Review Review { get; private set; }
 
 		private void SeedDatabase()
 		{
@@ -75,6 +76,18 @@ namespace CourseHub.Tests.UnitTests
 				Category = new Category() { Name = "Personal Development" }
 			};
 			_data.Courses.Add(secondCourse);
+			_data.SaveChanges();
+
+			Review = new Review()
+			{
+				Rating = 5,
+				Comment = "Very useful course!",
+				CourseId = Course.Id,
+				Course = Course,
+				ReviewerId = Student.Id,
+				Reviewer = Student
+			};
+			_data.Reviews.Add(Review);
 			_data.SaveChanges();
 		}
 

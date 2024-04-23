@@ -11,7 +11,7 @@ namespace CourseHub.Core.Contracts
 	{
 		Task<IEnumerable<ReviewAllViewModel>> GetForCourseAsync(int id);
 
-		Task AddAsync(ReviewFormViewModel model, string reviewerId);
+		Task CreateAsync(ReviewFormViewModel model, string reviewerId);
 
 		Task<bool> ReviewExistsAsync(int reviewId);
 

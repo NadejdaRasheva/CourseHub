@@ -63,7 +63,7 @@ namespace CourseHub.Controllers
                 return View(model);
             }
 
-            await reviewService.AddAsync(model, User.Id());
+            await reviewService.CreateAsync(model, User.Id());
 
             TempData["message"] = "Review successfully added.";
             TempData["messageType"] = "success";
