@@ -95,7 +95,7 @@ namespace CourseHub.Tests.UnitTests
 		{
 			var review = new Review()
 			{
-				Id = 2,
+				Id = 7,
 				Rating = 5,
 				Comment = "Amazing course.",
 				ReviewerId = Student.Id,
