@@ -16,7 +16,11 @@
             asp-route-information="@Model.GetInformation()"
                class="btn custom-button-course-color">Details</a>
             <a asp-action="AllForCourse" asp-controller="Review" asp-route-id="@Model.Id" class="btn custom-button-course-color">Reviews</a>
-            <a asp-action="StudentResult" asp-controller="Result" asp-route-courseId="@Model.Id" asp-route-studentId="@User.Id()" class="btn custom-button-course-color">Result</a>
+            @if((await courseService.CourseHasEndedAsync(Model.Id)) && (await courseService.StudentHasJoinedAsync(Model.Id, User.Id())))
+            {
+                <a asp-action="StudentResult" asp-controller="Result" asp-route-courseId="@Model.Id" asp-route-studentId="@User.Id()" class="btn custom-button-course-color">Result</a>
+            }
+           
             @if (this.User.Identity.IsAuthenticated)
             {
                 if (await courseService.HasTeacherWithIdAsync(Model.Id, User.Id()))
@@ -24,9 +28,13 @@
                         <a asp-area="" asp-controller="Course" asp-action="Edit" asp-route-id="@Model.Id"
                        class="btn custom-button-course-color">Edit</a>
                         <a asp-area="" asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
-                       class="btn custom-button-course-color">Delete</a>
-                    <a asp-area="" asp-controller="Result" asp-action="AllStudents" asp-route-id="@Model.Id"
-                       class="btn custom-button-course-color">Results</a>
+                         class="btn custom-button-course-color">Delete</a>
+                    if(await courseService.CourseHasEndedAsync(Model.Id))
+                    {
+                        <a asp-area="" asp-controller="Result" asp-action="AllStudents" asp-route-id="@Model.Id"
+                           class="btn custom-button-course-color">Results</a>
+                    }
+
                 }
 
                 else
@@ -36,23 +44,27 @@
                         <a asp-area="" asp-controller="Course" asp-action="Edit" asp-route-id="@Model.Id"
                            class="btn custom-button-course-color">Edit</a>
                         <a asp-area="" asp-controller="Course" asp-action="Delete" asp-route-id="@Model.Id"
-                           class="btn custom-button-course-color">Delete</a>
+            class="btn custom-button-course-color">Delete</a>
                     }
 
-                    if (await courseService.StudentHasJoinedAsync(Model.Id, User.Id()) == false)
+                    if(await courseService.CourseHasEndedAsync(Model.Id) == false)
                     {
-                        <form style='display:inline;' class="input-group" asp-controller="Course" asp-area=""
-                        asp-action="Join" asp-route-id="@Model.Id" method="post">
-                            <input style='display:inline;' class="btn custom-button-course-color" type="submit" value="Join" />
+                        if (await courseService.StudentHasJoinedAsync(Model.Id, User.Id()) == false)
+                        {
+                            <form style='display:inline;' class="input-group" asp-controller="Course" asp-area=""
+                  asp-action="Join" asp-route-id="@Model.Id" method="post">
+                                <input style='display:inline;' class="btn custom-button-course-color" type="submit" value="Join" />
                             </form>
-                    }
-                    else
-                    {
-                        <form style='display:inline;' class="input-group" asp-controller="Course" asp-area=""
-                        asp-action="Leave" asp-route-id="@Model.Id" method="post">
-                            <input style='display:inline;' class="btn custom-button-course-color" type="submit" value="Leave" />
+                        }
+                        else
+                        {
+                            <form style='display:inline;' class="input-group" asp-controller="Course" asp-area=""
+                  asp-action="Leave" asp-route-id="@Model.Id" method="post">
+                                <input style='display:inline;' class="btn custom-button-course-color" type="submit" value="Leave" />
                             </form>
+                        }
                     }
+                    
                 } 
             }
         </div>

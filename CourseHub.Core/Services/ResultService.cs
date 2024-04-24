@@ -103,19 +103,27 @@ namespace CourseHub.Core.Services
 			var result = await _data.Results
 				.FirstOrDefaultAsync(r => r.CourseId == courseId && r.StudentId == studentId);
 
-			var course = await _data.Courses.FirstAsync(c => c.Id == courseId);
-			var courseName = course.Name;
+			if(result != null)
+			{
+                var course = await _data.Courses.FirstAsync(c => c.Id == courseId);
+                var courseName = course.Name;
 
-				var resultView = new ResultViewModel()
-				{
-					Id = result.Id,
-					CourseId = courseId,
-					StudentId = studentId,
-					Grade = result.Grade,
-					Feedback = result.Feedback,
-					CourseName = courseName
-				};
-				return resultView;
+                var resultView = new ResultViewModel()
+                {
+                    Id = result.Id,
+                    CourseId = courseId,
+                    StudentId = studentId,
+                    Grade = result.Grade,
+                    Feedback = result.Feedback,
+                    CourseName = courseName
+                };
+                return resultView;
+            }
+			else
+			{
+				return null;
+			}
+			
 		}
 	}
 }

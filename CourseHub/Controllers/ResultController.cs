@@ -50,20 +50,22 @@ namespace CourseHub.Controllers
 				return BadRequest();
 			}
 
-			if (await resultService.GetStudentResult(id, studentId) != null)
+            var result = await resultService.GetStudentResult(id, studentId);
+            if (result != null)
 			{
-				var result = await resultService.GetStudentResult(id, studentId);
 				var resultId = result.Id;
 				return RedirectToAction(nameof(Edit), new { id = resultId });
 			}
-
-			var model = new ResultFormViewModel()
+            else
             {
-                CourseId = id,
-                StudentId = studentId
-            };
+                var model = new ResultFormViewModel()
+                {
+                    CourseId = id,
+                    StudentId = studentId
+                };
+                return View(model);
+            }
 
-            return View(model);
         }
 
         [HttpPost]
@@ -78,9 +80,9 @@ namespace CourseHub.Controllers
 				return BadRequest();
 			}
 
-			if (await resultService.GetStudentResult(model.CourseId, model.StudentId) != null)
-            {
-                var result = await resultService.GetStudentResult(model.CourseId, model.StudentId);
+            var result = await resultService.GetStudentResult(model.CourseId, model.StudentId);
+            if (result != null)
+            {   
                 var resultId = result.Id;
 				return RedirectToAction(nameof(Edit), new {id = resultId});
 			}
@@ -106,10 +108,6 @@ namespace CourseHub.Controllers
 			{
 				return BadRequest();
 			}
-			if (await courseService.CourseHasEndedAsync(id) == false)
-			{
-				return BadRequest();
-			}
 
 			if (await resultService.HasTeacherWithIdAsync(id, User.Id()) == false && User.IsAdmin() == false)
 			{
@@ -125,10 +123,6 @@ namespace CourseHub.Controllers
 		public async Task<IActionResult> Edit(int id, ResultFormViewModel model)
 		{
 			if (await resultService.ResultExistsAsync(id) == false)
-			{
-				return BadRequest();
-			}
-			if (await courseService.CourseHasEndedAsync(id) == false)
 			{
 				return BadRequest();
 			}

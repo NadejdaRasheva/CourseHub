@@ -23,44 +23,6 @@
 			<p>Start Date: <b>@Model.StartDate</b></p>
 			<p>End Date: <b>@Model.EndDate</b></p>
 			<p>Times per week: <b>@Model.Frequency</b></p>
-			<div class="form-inline">
-				
-				@if (this.User.Identity.IsAuthenticated)
-				{
-					if (await courseService.HasTeacherWithIdAsync(Model.Id, User.Id()))
-					{
-						<a class="btn custom-button-course-color" asp-controller="Course" asp-action="Edit"
-                       asp-route-id="@Model.Id">Edit</a>
-						<a class="ml-2 btn custom-button-course-color" asp-controller="Course" asp-action="Delete"
-                       asp-route-id="@Model.Id">Delete</a>
-					}
-
-					else
-					{
-						if (User.IsAdmin())
-						{
-							<a class="btn custom-button-course-color" asp-controller="Course" asp-action="Edit"
-						   asp-route-id="@Model.Id">Edit</a>
-							<a class="ml-2 btn custom-button-course-color" asp-controller="Course" asp-action="Delete"
-						   asp-route-id="@Model.Id">Delete</a>
-						}
-						if (await courseService.StudentHasJoinedAsync(Model.Id, User.Id()) == false)
-						{
-							<form class="input-group-sm" asp-controller="Course"
-                    asp-action="Join" asp-route-id="@Model.Id" method="post">
-								<input class="btn custom-button-course-color" type="submit" value="Join" />
-							</form>
-						}
-						else
-						{
-							<form class="input-group-sm" asp-controller="Course"
-                    asp-action="Leave" asp-route-id="@Model.Id" method="post">
-								<input class="btn custom-button-course-color" type="submit" value="Leave" />
-							</form>
-						}
-					}
-				}
-			</div>
 			<p></p>
 			<div class="card" style="width: 18rem;">
 				<div class="card-body">
@@ -70,6 +32,7 @@
 					<p class="card-text">Phone Number: @Model.Teacher.PhoneNumber</p>
 				</div>
 			</div>
+			<p></p>
 			<a asp-controller="Course" asp-action="All" class="btn btn-warning mb-2 w-100 p-3 fw-bold">Back to All Courses</a>
 		</div>
 	</div>
