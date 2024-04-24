@@ -13,5 +13,13 @@ namespace CourseHub.Core.Extensions
 
             return info;
         }
+
+        public static string GetStudentInfromation(this IStudentModel student)
+        {
+            string info = student.StudentId;
+            info = Regex.Replace(info, @"[a-z0-9-]", string.Empty);
+            info = info + $"{student.StudentName.Replace(" ", "-")}";
+            return info;
+		}
     }
 }

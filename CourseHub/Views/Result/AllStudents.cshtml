@@ -37,7 +37,7 @@
 				<p class="result-rating">@student.StudentName</p>
 				
 					<div class="d-flex align-items-center">
-					<a style="margin-right: 10px" asp-area="" asp-controller="Result" asp-action="Add"
+					<a style="margin-right: 10px" asp-area="" asp-controller="Result" asp-action="Add" asp-route-information="@student.GetStudentInfromation()"
 			        asp-route-id="@Convert.ToInt32(ViewData["courseId"])" asp-route-studentId="@student.StudentId" class="btn custom-button-course-color">Result</a>
 					</div>	
 			</div>
@@ -52,3 +52,6 @@ else
 		</div>
 	</div>
 }
+
+
+

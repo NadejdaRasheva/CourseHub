@@ -5,7 +5,10 @@ using CourseHub.Infrastrucure.Data;
 using CourseHub.ModelBinders;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Policy;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,12 +60,21 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 
+app.UseRewriter(new RewriteOptions()
+        .AddRewrite(@"^/Result/Add/^0-9/^a-zA-Z0-9\-", "/Result/Add/", skipRemainingRules: false) // Rewrite a specific URL pattern
+);
+
 app.UseEndpoints(endpoints =>
 {
     endpoints.MapControllerRoute(
         name: "Course Details",
         pattern: "/Course/Details/{id}/{information}",
         defaults: new { Controller = "Course", Action = "Details"}
+    );
+    endpoints.MapControllerRoute(
+        name: "Result Add",
+        pattern: "/Result/Add/{id}/{studentId}/{information}",
+        defaults: new { Controller = "Result", Action = "Add" }
     );
     endpoints.MapControllerRoute(
             name: "areas",
