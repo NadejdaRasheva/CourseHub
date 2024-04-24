@@ -24,6 +24,7 @@ namespace CourseHub.Tests.UnitTests
 		public Teacher Teacher { get; private set; }
 		public Course Course { get; private set; }
 		public Review Review { get; private set; }
+		public Result Result { get; private set; }
 
 		private void SeedDatabase()
 		{
@@ -87,6 +88,17 @@ namespace CourseHub.Tests.UnitTests
 				Reviewer = Student
 			};
 			_data.Reviews.Add(Review);
+
+			Result = new Result()
+			{
+				Grade = 6,
+				Feedback = "Good job!",
+				Student = Student,
+				StudentId = Student.Id,
+				Course = Course,
+				CourseId = Course.Id
+			};
+			_data.Results.Add(Result);
 			_data.SaveChanges();
 		}
 

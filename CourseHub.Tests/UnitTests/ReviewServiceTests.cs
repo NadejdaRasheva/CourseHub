@@ -141,17 +141,6 @@ namespace CourseHub.Tests.UnitTests
 		[Test]
 		public async Task EditAsync_ShouldEditCorrectReview()
 		{
-			//var review = new Review()
-			//{
-			//	Rating = 5,
-			//	Comment = "Very useful course!",
-			//	Course = Course,
-			//	CourseId = Course.Id,
-			//	Reviewer = Student,
-			//	ReviewerId = Student.Id,
-			//};
-			//await _data.Reviews.AddAsync(review);
-			//await _data.SaveChangesAsync();
 
 			var reviewModel = new ReviewFormViewModel()
 			{
@@ -169,5 +158,7 @@ namespace CourseHub.Tests.UnitTests
 			Assert.That(reviewModel.Comment, Is.EqualTo(editedReview.Comment));
 			Assert.That(reviewModel.CourseId, Is.EqualTo(editedReview.CourseId));
 		}
+
+		
 	}
 }
